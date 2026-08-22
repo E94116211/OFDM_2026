@@ -1,0 +1,1242 @@
+\documentclass[xcolor=dvipsnames]{beamer} % 使用beamer類，並允許使用dvipsnames顏色
+
+% ------ Beamer 主題和顏色設定 ------
+\usetheme{CambridgeUS} % 使用CambridgeUS主題
+\usecolortheme[named=blue]{structure}  % 使用名為blue的顏色主題
+\useoutertheme{infolines} % 使用infolines外部主題
+\usefonttheme{professionalfonts} % 使用專業字體主題
+
+
+% ------ 套件導入 ------
+\usepackage{amsmath,amssymb} % 數學符號和公式
+\usepackage{epsfig,graphicx} % 圖片插入
+\usepackage{fancyhdr} % 高級頁眉頁腳
+\usepackage{color} % 顏色
+\usepackage{xeCJK} % 中文支持
+\usepackage{subfig} % 子圖片
+\usepackage{array} % 進階陣列和表格
+\usepackage{stfloats} % 提供更多浮動環境控制
+\usepackage{url} % 插入URL%\usepackage{times} % Times字體
+\usepackage{bm} % 粗體數學符號
+\usepackage{bibentry} % 不生成參考文獻列表
+%\usepackage{epstopdf} % EPS圖片轉PDF
+
+
+
+% ------ XeLaTeX 字體設定 ------
+\usepackage{fontspec}
+\usepackage{xeCJK} % 中文支援
+
+% 設定中文字型（標楷體）
+\setCJKmainfont{DFKai-SB}   % 中英混排的中文主要字型
+\setCJKsansfont{DFKai-SB}   % 中文無襯線
+\setCJKmonofont{DFKai-SB}   % 中文等寬
+
+% 設定英文字型（Times New Roman）
+\setmainfont{Times New Roman}
+\setsansfont{Times New Roman}
+\setmonofont{Times New Roman}
+
+
+% ------ 定義備註頁模板 ------
+\defbeamertemplate{note page}{plain2}
+{
+  \vskip.25em
+  \nointerlineskip
+  \begin{minipage}{\textwidth}
+  \insertnote
+  \end{minipage}
+}
+
+% ------ 自定義頭部模板 ------
+\setbeamertemplate{headline}{
+    \leavevmode% 保證正確的垂直模式
+    \hbox{% 開始水平盒子
+        % 標題部分，寬度佔整頁的90%
+        \begin{beamercolorbox}[wd=.9\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+            \usebeamerfont{title in head/foot}\inserttitle
+        \end{beamercolorbox}%
+        % logo部分，寬度佔整頁的10%
+        \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}
+            \usebeamerfont{author in head/foot}
+            \raisebox{-1.1ex}{\includegraphics[keepaspectratio,width=1.2cm]{SpaceComm LOGO_Black_ Horizontal 1.png}}\hspace*{1ex}
+        \end{beamercolorbox}%
+    }%
+    \vskip0pt% 確保之後的內容與這一部分緊密相連
+}
+
+% ------ 自定義尾部模板 ------
+\setbeamertemplate{footline}{
+    \leavevmode%
+    \hbox{%
+        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+            Chao-Yu Chen (EE/CCE, NCKU)
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+            OFDM
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+            \insertshortdate{}\hspace*{2em}
+            \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+            % 加上頁碼與總頁數（其實我是計frame數因為pagenumber不會採計appendix的部份）
+        \end{beamercolorbox}
+    }%
+    \vskip0pt%
+}
+
+% ------ Beamer 顏色設定 ------
+\definecolor{Red}{RGB}{163,0,0} % 自定義紅色
+\setbeamercolor{title}{fg=Red} % 設置標題顏色
+\setbeamercolor{frametitle}{fg=Red} % 設置頁框標題顏色
+\setbeamercolor{author in head/foot}{bg=Red, fg=white} % 設置頁眉頁腳中的作者顏色
+\setbeamercolor{block title}{bg=red!30,fg=black} % 設置區塊標題顏色
+\setbeamercolor{block body}{bg=blue!5,fg=black} % 設置區塊內容顏色
+\setbeamercolor{caption name}{fg=black} % 設置標題名稱顏色
+\setbeamercolor{bibliography item}{fg=black} % 設置參考文獻條目顏色
+\setbeamercolor*{bibliography entry title}{fg=black} % 設置參考文獻標題顏色
+\setbeamercolor*{bibliography entry author}{fg=black} % 設置參考文獻作者顏色
+\setbeamercolor*{bibliography entry location}{fg=black} % 設置參考文獻位置顏色
+\setbeamercolor*{bibliography entry note}{fg=black} % 設置參考文獻備註顏色
+
+
+% ------ 參考文獻、項目、區塊和導航設定 ------
+\setbeamertemplate{note page}[plain2] % 使用定義的備註頁模板
+\setbeamertemplate{caption}[] % 圖片標題不帶有編號
+%\setbeamertemplate{caption}[numbered] % 圖片標題帶有編號
+\setbeamertemplate{bibliography item}[text] % 參考文獻條目模板
+\setbeamertemplate{blocks}[rounded][shadow=true] % 區塊有圓角和陰影
+\setbeamertemplate{navigation symbols}{} % 不顯示導航符號
+
+
+% ------ 項目符號設定 ------
+\setbeamertemplate{items}[circle] % 項目符號為球體
+\setbeamercolor{itemize item}{fg=black} % 設置一級項目符號顏色
+\setbeamercolor{itemize subitem}{fg=black} % 設置二級項目符號顏色
+\setbeamercolor{itemize subsubitem}{fg=black} % 設置三級項目符號顏色
+
+
+% ------ 新命令 ------
+\newcommand{\Fig}{Fig.$\,$} % 簡化圖片引用
+\newcommand{\Acal}{\mathcal A} % 簡化數學符號
+\newcommand{\nn}{\nonumber} % 簡化數學符號
+\newcommand{\E}{{\mathrm{E}}} % 簡化數學符號
+\newcommand{\PAPR}{\mbox{PAPR}} % 簡化數學符號
+
+\newcommand{\Nshift}{$N-$shift auto-orthogonal } % 簡化特定術語
+\newcommand{\auto}{autocorrelation } % 簡化特定術語
+\newcommand{\cross}{cross-correlation } % 簡化特定術語
+\newcommand{\highlight}[1]{\textbf{\textcolor{Red}{#1}}} % 定義一個新命令來加粗和染色文字
+
+% ------ 定理、定義、性質等環境 ------
+\newtheorem{thm}{Theorem} % 定義定理環境
+\newtheorem{rmk}{Remark} % 定義備註環境
+\newtheorem{prop}[thm]{Proposition} % 定義命題環境
+\newtheorem{property}[thm]{Property} % 定義性質環境
+\newtheorem{defin}{Definition} % 定義定義環境
+\newtheorem{crly}{Corollary} % 定義推論環境
+\newtheorem{eg}{Example} % 定義示例環境
+\newtheorem{remark}{Remark} % 定義備註環境
+%\newtheorem{lemma}{Lemma}
+
+% 重新定義腳註樣式
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+%--------------------讓作者裡面可以加換行符號-----------------------------------%
+\pdfstringdefDisableCommands{%
+  \def\\{}%
+  \def\texttt#1{<#1>}%
+}
+
+%-----------------------------------開始--------------------------------------%
+\title{Introduction to Orthogonal Frequency Division Multiplexing (OFDM) Technique}
+\author{\large 凌銪成、胡郡珍、李姿穎、張博盛、洪秉榞、甘承翰、\\范榆君、陳品維}
+\institute{\large 國立成功大學\\電腦與通訊工程研究所}
+\titlegraphic{\vspace{-2cm}\hspace{10cm}\includegraphics[width=2cm]{ncku_logo.jpg}
+}
+\date{\today}
+\begin{document}
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \titlepage
+\end{frame}
+
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Outline}
+    \begin{itemize}
+        \item OFDM Overview
+        \item OFDM System Model
+        \item Orthogonality
+        \item Multi-Carrier Equivalent Implementation by Using IDFT (IFFT)
+        \item Cyclic Prefix (CP)
+        \item Summary
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Transmission Mode}
+    \begin{itemize}
+        \item Single-Carrier (SC) vs. Multi-Carrier (MC)
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.99\textwidth]{SC_MC.eps}
+    \end{figure}
+    \begin{minipage}[t]{0.49\textwidth}
+        \begin{itemize}
+            \item Data are transmitted over only one carrier.
+            \item Frequency selective fading.
+        \end{itemize}
+    \end{minipage} 
+    \begin{minipage}[t]{0.49\textwidth}
+        \begin{itemize}
+            \item Data are shared among several carriers and simultaneously transmitted.
+            \item Flat fading.
+        \end{itemize}
+    \end{minipage} 
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{OFDM Definition}
+    \begin{itemize}
+        \item OFDM
+        \begin{itemize}
+            \item \highlight{O}rthogonal \highlight{F}requency \highlight{D}ivision \highlight{M}ultiplexing
+        \end{itemize}
+    \end{itemize}
+    \begin{itemize}
+        \item The basic principle of OFDM is to \highlight{split a high-rate data \\stream into a number of lower rate streams} that are\\ transmitted simultaneously over a number of sub-carriers.
+        \item It eliminates or alleviates the problem of \highlight{multi-path channel fading effect}, \highlight{low spectrum efficiency}, and \highlight{frequency selective fading}.
+    \end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{OFDM Overview(1/2)}
+    \begin{itemize}
+        \item OFDM modulation
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth]{OFDM_signal.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{OFDM Overview(2/2)}
+    \begin{itemize}
+        \setlength{\itemsep}{8pt}
+        \item Feature
+        \begin{itemize}
+            \setlength{\itemsep}{8pt}
+            \item No intercarrier guard bands
+            \item Overlapping of bands
+            \item Spectral efficiency
+            \item Easy implementation by IFFTs
+            \item Very sensitive to synchronization
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{OFDM Transmitter}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\textwidth]{transmitter.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Systems}
+    \begin{itemize}
+        \item Multi-carrier Transmission
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.65\textwidth]{MC_System.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Systems}
+    \begin{itemize}
+        \item Multi-carrier for ${N=8}$
+    \end{itemize}
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}
+            \includegraphics[width=0.99\textwidth]{subcarrier.eps}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{align*}
+            \delta(f - f_0) & \longrightarrow \exp(j 2\pi f_0 t) \\
+            \delta(f - f_1) & \longrightarrow \exp(j 2\pi f_1 t) \\
+            \delta(f - f_2) & \longrightarrow \exp(j 2\pi f_2 t) \\
+            \delta(f - f_3) & \longrightarrow \exp(j 2\pi f_3 t) \\
+            \delta(f - f_4) & \longrightarrow \exp(j 2\pi f_4 t) \\
+            \delta(f - f_5) & \longrightarrow \exp(j 2\pi f_5 t) \\
+            \delta(f - f_6) & \longrightarrow \exp(j 2\pi f_6 t) \\
+            \delta(f - f_7) & \longrightarrow \exp(j 2\pi f_7 t) \\
+        \end{align*}
+    \end{minipage}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Transmitted Signal (1/4)}
+    \begin{itemize}
+        \item The transmitted waveform ${D(t)}$ can be proved as
+        \begin{align*}
+            D(t) &= Re\Big\{\sum_{n=0}^{N-1} d(n) \exp(j2\pi f_{n} t)\Big\} \\
+            &=Re\Big\{\sum_{n=0}^{N-1}\ [a(n)+jb(n)][\cos{(2\pi f_{n}t)}+j\sin{(2\pi f_{n}t)}]\Big\}\\
+            &=\sum_{n=0}^{N-1}\ a(n)\cos{(2\pi f_{n}t)}-b(n)\sin{(2\pi f_{n}t)}
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Transmitted Signal (2/4)}
+    \begin{itemize}
+        \item The transmitted waveform ${D(t)}$ can be expressed as
+        \begin{equation} \label{a}
+            D(t)=\sum_{n=0}^{N-1}\{a(n)\cos{(2{\pi}f_{n}t)}+b(n)\sin{(2{\pi}f_{n}t)}\}
+        \end{equation}
+        \[\text{where}\ f_{n}=f_{0}+n\Delta{f}\ \text{and}\ \Delta{f}=\frac{1}{N\Delta{t}}\]
+        %\begin{itemize}
+            \item Using a two-dimensional digital modulation format, the data
+	              symbols $d(n)$ can be represented as $a(n) + jb(n)$.
+            \begin{itemize}
+                \item $a(n)$ : in-phase component
+                \item $b(n)$ : quadrature component
+            \end{itemize}
+        %\end{itemize}
+    \end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Transmitted Signal (3/4)}
+        \centering
+        \includegraphics[width=0.9\textwidth]{delta_f.eps}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Transmitted Signal (4/4)}
+        \begin{figure}
+        \centering
+            \includegraphics[width=0.8\textwidth]{sc.eps}
+        \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{OFDM System Model}
+    \begin{itemize}
+        \item The serial data elements spaced by $\Delta{t}$ are grouped and used to modulate N carriers. Thus they are frequency division multiplexed.
+        \item The signaling interval is then increased to $N\Delta{t}$, which makes the system less susceptible to channel delay spread impairments.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\textwidth]{fading.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Symbol Period vs. Multipath Interference}
+    \begin{itemize}
+        \item Under the same multipath delay condition, as the symbol period lengthens, the impact of multipath interference decreases.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\textwidth]{Delay_SymbolTime.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation (1/6)}
+    \begin{itemize}
+        \item Multipath is the propagation phenomenon that results in radio signals reaching the receiving antenna by two or more paths.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\textwidth]{Multipath_propagation.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation (2/6)}
+    \begin{itemize}
+        \item Multipath propagation results in a received signal that is dispersed in time.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\textwidth]{Delay_spread.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation (3/6) --- Proof}
+    \begin{itemize}
+        \item Two-path channel impulse response:
+        \begin{align*}
+            &h(t)=a\delta(t)+b\delta(t-\tau) \\
+            &\text{where } a \text{ and } b \text{ are the amplitudes, and }
+            \tau \text{ is the delay of the second path.}
+        \end{align*}
+    \end{itemize}
+    \begin{itemize}
+        \item Frequency response:
+        \begin{align*}
+            H(f)&=a+b e^{-j 2\pi f \tau} \\
+            \left| H(f) \right|^2&=H(f)H(f)^*\\
+            &=(a+b e^{-j 2\pi f \tau})(a+b e^{j 2\pi f \tau})\\
+            &=a^2+ab(e^{-j 2\pi f \tau} + e^{j 2\pi f \tau})+b^2\\
+            &=a^2+ab \cdot 2\cos(2\pi f \tau) +b^2\\
+            &=a^2+b^2+2ab\cos(2\pi f \tau)\\
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation (4/6) --- Proof}
+    \begin{itemize}
+        \item $a = b$.
+        \begin{align*}
+            \left| H(f) \right|^2 &= a^2 + a^2 + 2a^2\cos(2\pi f \tau) \\
+            &= 2a^2 \left(1+\cos(2\pi f \tau)\right) \\
+        \end{align*}
+        If $\cos(2 \pi f \tau) = -1$, then signal cancellation.
+
+        \item $a \neq b$.
+        \begin{align*}
+            \left| H(f) \right|^2 &= a^2 + b^2 + 2ab\cos(2\pi f \tau)
+        \end{align*}
+        Although $\cos(2 \pi f \tau) = -1$, signal is not cancellation.
+        \begin{align*}
+            {\left| H(f) \right|_{\min}}^2 &= a^2 + b^2 - 2ab = (a-b)^2 \\
+            \left| H_{\min} \right| &= \left| a-b \right| \neq 0
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation (5/6)}
+    \begin{itemize}
+        \item Two paths, each with a different amplitude.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{delayspread1.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation (6/6)}
+    \begin{itemize}
+        \item Two paths, each with an amplitude equal to 1.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{delayspread2.eps}
+    \end{figure}
+\end{frame}
+%----------------------------------------------------------------------------%
+
+
+\begin{frame}
+    \frametitle{Orthogonality (1/10)}
+    \begin{itemize}
+        \item Consider a set of transmitted carriers as follows:
+        \begin{equation}
+            \psi_{n}(t)=e^{j2\pi(f_{0}+\frac{n}{N\Delta t})t}
+            \, \text{ for }\, n=0,1,...,N-1\,\text{ and }\,\Delta f=\frac{1}{N\Delta t}.
+        \end{equation}
+    \end{itemize}
+    \begin{itemize}
+        \item  We now show that every two carriers are orthogonal to each other. (proof is in next page)
+        \begin{itemize}
+            \item In summary:
+             \begin{align}
+                 \int_{a}^{b} \psi_{p}(t) \psi_{q}^\ast(t)dt=
+                 \left \{
+                 \begin{array}
+                 {lr}(b-a)\,\text{ for }\, p=q\\
+                 0\,\text{ for }\,p\neq q \,\text{ and }\,(b-a)=N\Delta t
+                 \end{array}
+                 \right.
+            \end{align}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (2/10) --- Proof}
+    \begin{itemize}
+        \item $p=q$
+        \begin{align*}
+            &\int_{a}^{b} \psi_{p}(t) \psi_{p}^\ast(t)dt\\
+            =&\int_{a}^{b} e^{j2\pi(f_{0}+\frac{p}{N\Delta t})t}e^{-j2\pi(f_{0}+\frac{p}{N\Delta t})t}dt\\
+            =&\int_{a}^{b}e^{0}dt\\
+            =&\int_{a}^{b}1dt\\
+            =&b-a
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (3/10) --- Proof}
+    \begin{itemize}
+        \item $p=q$, which $\psi_{q}(t)$ delay c
+        \begin{align*}
+            &\int_{a}^{b} \psi_{p}(t) \psi_{p}^\ast(t-c)dt\\
+            &=\int_{a}^{b} e^{j2\pi(f_{0}+\frac{p}{N\Delta t})t}e^{-j2\pi(f_{0}+\frac{p}{N\Delta t})(t-c)}dt\\
+            &=\int_{a}^{b} e^{j2\pi(f_{0}+\frac{p}{N\Delta t})c}dt\\
+            &\text {let ${e^{j2\pi(f_{0}+\frac{p}{N\Delta t})c} = C}$ be a constant}\\
+            &=C\int_ { a } ^ { b } 1 d t\\                                      
+            &=C( b - a )                                                  
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (4/10) --- Proof}
+    \begin{itemize}
+        \item $p\neq q$ and $(b-a)=N\Delta t$
+        \begin{align*}
+           &\int_{a}^{b} \psi_{p}(t) \psi_{q}^\ast(t)dt\\
+           =&\int_a^b e^{j2\pi(f_0 + \frac{p}{N\Delta t})t} \cdot e^{-j2\pi(f_0 + \frac{q}{N\Delta t})t}dt\\
+           =&\int_a^b e^{j2\pi(\frac{p - q}{N\Delta t})t} \\
+           =& \frac{e^{j2\pi(p-q) \frac{b}{N\Delta t}}-e^{j2\pi(p-q) \frac{a}{N\Delta t}}}{\frac{j2\pi(p-q)}{N\Delta t} }\\
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (5/10) --- Proof}
+    \begin{itemize}
+        \item Continued from previous page: 
+        \begin{align*}
+           =& \frac{1}{j2\pi \left( \frac{p-q}{N\Delta t} \right)} \left( e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a} \cdot (e^{j2\pi(p-q) \frac{1}{N\Delta t}(b-a)}-1) \right)\\
+           &\text{b-a is an observation period}=N\Delta t\\
+           &\text{ and }  p-q \text{ is an integer so } e^{-j2\pi (p-q)}=1\\
+           =& \frac{1}{j2\pi \left( \frac{p-q}{N\Delta t} \right)} \left( e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a} \cdot (1-1) \right)\\
+           =&0
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (6/10) --- Proof}
+    \begin{itemize}
+        \item $p\neq q$ and $(b-a)=N\Delta t$, which $\psi_{p}(t)$ delay c and $\psi_{q}(t)$ delay d 
+        \begin{align*}
+           &\int_{a}^{b} \psi_{p}(t-c) \psi_{q}^\ast(t-d)dt\\
+           =&\int_{a}^{b} e^{j2\pi(f_{0}+\frac{p}{N\Delta t})(t-c)}e^{-j2\pi(f_{0}+\frac{q}{N\Delta t})(t-d)}dt\\   
+           =&\int_{a}^{b} e^{j2\pi f_{0}(t-c)}e^{j2\pi \frac{p}{N\Delta t}(t-c)}e^{-j2\pi f_{0}(t-d)}e^{-j2\pi \frac{q}{N\Delta t}(t-d)}dt\\   
+           =&\int_{a}^{b} \frac{e^{j2\pi \frac{p}{N\Delta t}t}}{e^{j2\pi f_{0}c}e^{j2\pi \frac{p}{N\Delta t}c}}\frac{e^{-j2\pi \frac{q}{N\Delta t}t}}{e^{-j2\pi f_{0}d}e^{-j2\pi \frac{q}{N\Delta t}d}}dt\\
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (7/10) --- Proof}
+    \begin{itemize}
+        \item Let ${e^{-j2\pi f_0c} e^{j2\pi f_0d} e^{-j2\pi(\frac{p}{N\Delta t})c} e^{j2\pi(\frac{q}{N\Delta t})d} = C}$ be a constant
+    \end{itemize}
+    \begin{align*}
+        =&C\int_{a}^{b}e^{j2\pi(\frac{p}{N\Delta t})t}e^{-j2\pi(\frac{q}{N\Delta t})t}dt\\
+        =&C\int_{a}^{b}e^{j2\pi\frac{(p-q)}{N\Delta t}t}dt \\
+        =&C\frac{e^{j2\pi(p-q)\frac{b}{N\Delta t}}-e^{j2\pi(p-q)\frac{a}{N\Delta t}}}{\frac{j2\pi(p-q)}{N\Delta t} }\\
+        =&C\frac{e^{j2\pi(p-q) \frac{b}{N\Delta t}}(1-e^{j2\pi(p-q) \frac{1}{N\Delta t}(a-b)})}{\frac{j2\pi(p-q)}{N\Delta t} }\\
+        =&0 \text{ for } p\neq q\text{, and }(b-a)=N\Delta t
+    \end{align*}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (8/10)}
+    \begin{itemize}
+        \item Transmitted Signal
+    \end{itemize}
+    \begin{figure}
+        \centering
+        %\hspace{-1cm}
+        \includegraphics[width=0.8\textwidth, trim=0.5cm 0.5cm 0.5cm 0.5cm, clip]{transmitted_signal_v5.eps}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (9/10)}
+    \begin{itemize}
+        \item Transmitted Signal in time domain
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.99\textwidth]{OFDM_TD.eps}
+    \end{figure}  
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (10/10)}
+    \begin{itemize}
+        \item Transmitted Signal in frequency domain
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.97\textwidth]{OFDM_FD.eps}
+    \end{figure} 
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Frequency Error Result in Inter-Carrier Interference (ICI)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{ICI.eps}
+    \end{figure}  
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Timing Synchronization Error Results in Inter-Symbol Interference (ISI)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{Timing_Synchronization_Error_ISI.eps}
+    \end{figure}
+\end{frame}
+\begin{frame}
+    \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{Timing_Synchronization_Error_ICI.eps}
+    \end{figure}
+\end{frame}
+\begin{frame}
+    \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{ICI_2-plus.pdf}
+    \end{figure}  
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Mathematical Expression of OFDM Signal (1/3)}
+    \begin{itemize}
+        \item Frequency Division Multiplexing
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{FDM.eps}
+
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Mathematical Expression of OFDM Signal (2/3)}
+    \begin{itemize}
+        \item From above, we know that $\psi_{n}(t)$  is the orthogonal signal set. An OFDM signal based on this orthogonal signal set can be written as:
+        \begin{equation} 
+            x(t)=Re\Big\{\sum_{k=-\infty}^{\infty}\sum_{n=0}^{N-1}d_{k,n}\psi_{n}(t-kT)\Big\}
+        \end{equation}
+        \begin{align*} 
+            \text{ where }\psi_{n}(t)&=e^{j2\pi f_{n}t}\,&\text{ for }\,n=0,1,...,N-1\\
+            f_{n}&=f_{0}+\frac{n}{T},&T=N\Delta t\\
+            d_{k,n}&=a_{k,n}+jb_{k,n}\\
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Mathematical Expression of OFDM Signal (3/3)}
+    \begin{itemize}
+        \item T : OFDM symbol duration
+        \item  $d_{k,n}$: transmitted data on the $n$-th carrier of the $k$-th symbol.
+        \begin{align}
+            x(t)&=Re\Big\{\sum_{k=-\infty}^{\infty}\sum_{n=0}^{N-1}d_{k,n}\psi_{n}(t-kT)\Big\}\\
+            &=\sum_{k=-\infty}^{\infty}\sum_{n=0}^{N-1}\Big\{a_{k,n}\cos{(2{\pi}f_{n}(t-kT))}-b_{k,n}\sin{(2{\pi}f_{n}(t-kT))}\Big\}\
+        \end{align}
+        \item If there is only one OFDM symbol ( i.e. $k$ = 0 ), it can be simplified as:
+        \begin{equation} 
+            x(t)=\sum_{n=0}^{N-1}\{a(n)\cos{(2{\pi}f_{n}t)}-b(n)\sin{(2{\pi}f_{n}t)}\}
+        \end{equation}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (1/6)}
+    \begin{itemize}
+        \item According to the structure of Tx, it must use $N$ oscillators. 
+        \item That increases the hardware complexity.
+        \item The equivalent method is using IDFT (IFFT).
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (2/6)}
+    \begin{itemize}
+        \item In general, each carrier can be expressed as:
+        \begin{equation}
+            S_{c}(t)=A_{c}(t)e^{j(2\pi f_{c}t+\phi_{c}(t))}   
+        \end{equation}
+        \item We assume that there are \(N\) carriers in the OFDM signal.
+        \item Then the total complex signal \(S_{s}(t)\) can be represented by:
+        \begin{equation}
+            S_{s}(t)=\frac{1}{N}\sum_{n=0}^{N-1}A_{n}(t)e^{j(2\pi f_{n}t+\phi_{n}(t))}
+        \end{equation}
+        \item where \( f_{n}=f_{0}+n\Delta f \) \\
+        \item and \(A_{n}(t)\), \(\phi_{n}(t)\), \(f_{n}\) are the amplitude, phase, and carrier frequency of the \(n\)-th carrier, respectively.
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (3/6)}
+    \begin{itemize}
+        \item  Then we sample the signal at a sampling frequency$\frac{1}{\Delta t}$ , and $A_{n}(t)$ and $\phi_{n}(t)$ becomes:
+        \begin{align}
+            \phi_{n}(t)&=\phi_{n}\\
+            A_{n}(t)&=A_{n}\\
+            S_{s}(k\Delta t)=\frac{1}{N}\sum_{n=0}^{N-1}&A_{n}e^{j(2\pi(f_{0}+n\Delta f)k\Delta t+\phi_{n})}
+        \end{align}
+    \end{itemize}
+    \begin{itemize}
+        \item Then the sampled signal can be expressed as:
+        \begin{equation}
+            S_{s}(k\Delta t)=(\frac{1}{N}\sum_{n=0}^{N-1}A_{n}e^{j\phi_{n}}e^{j2\pi nk\Delta f\Delta t})e^{j2\pi f_{0}k\Delta t}       
+        \end{equation}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (4/6)}
+    \begin{itemize}
+        \item The inverse discrete Fourier transform (IDFT) is defined as the following:
+        \begin{equation}
+            f(k\Delta t)=\frac{1}{N}\sum_{n=0}^{N-1}F(n\Delta f)e^{j2\pi nk/N}
+        \end{equation}
+    \end{itemize}
+    \begin{itemize}
+        \item Comparing eq.(13) and eq.(14), the condition must be satisfied in order to make eq.(13) an inverse Fourier transform relationship:
+        \begin{equation}
+            \Delta f=\frac{1}{N\Delta t}
+        \end{equation}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (5/6)}
+    \begin{itemize}
+        \item If eq.(15) is satisfied,
+        \begin{itemize}
+             \item $A_{n}e^{j\phi _{n}}$is the frequency domain signal.
+             \item $S_{s}(k\Delta t)$is the time domain signal.
+             \item $\Delta f$ is the sub-channel spacing.
+             \item $N\Delta t$ is the symbol duration in each sub-channel.
+        \end{itemize}
+    \end{itemize}
+    \begin{itemize}
+        \item This outcome is the same as the result obtained in the system of Figure 1. Therefore IDFT can be used to generate an OFDM transmission signal.
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (6/6)}
+        \centering
+        \includegraphics[width=0.6\textwidth]{Multi_carrier_Equivalent_1.eps}
+        \vspace{5mm}
+        \includegraphics[width=0.6\textwidth]{Multi_carrier_Equivalent_2.eps}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(1/13)}
+    \begin{itemize}
+        \item In  multipath channel, delayed replicas of previous OFDM signal lead to ISI between successive OFDM signals.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{CP_1.png}
+    \end{figure}
+    \begin{itemize}
+        \item Solution : Insert a guard interval (GI) between successive OFDM signals.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{CP_2.png}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(2/13)}
+    \begin{itemize}
+        \item However, adding guard interval breaks the orthogonality, leading to intercarrier interference (ICI).
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{GI.jpg}
+    \end{figure}
+    \begin{itemize}
+        \item In DFT interval, difference between two subcarriers does not  maintain integer number of cycles    $ \rightarrow$ loss of orthogonality.
+        \item Delayed version of subcarrier 2 causes ICI in the process of  demodulating subcarrier 1.
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(3/13)}
+    \begin{itemize}
+        \item Cyclic prefix (CP):A copy of the last part of OFDM signal is attached to the front of itself.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\textwidth]{CP_9.png}
+    \end{figure}
+    \begin{itemize}
+        \item All delayed replicas of subcarriers always have an integer number of cycles within DFT interval, which means no ICI.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\textwidth]{delay.jpg}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(4/13)}
+    \begin{itemize}
+        \item Within the DFT interval, if a subcarrier does not complete an integer number of cycles, its orthogonality is lost, leading to ICI.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\textwidth]{GI_cause_ISI_modify.png}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(5/13)}
+    \begin{itemize}
+    \item Original continuous subcarrier:
+    \begin{align*}
+        x(t) &= e^{j 2\pi f_0 t},\, -\infty < t < \infty \\
+        X(f) &= \delta(f - f_0)
+    \end{align*}
+    \item Guard interval of duration $T_{\mathrm{GI}}$:
+    \[
+        a(t) = 
+        \begin{cases}
+            1, & T_{\mathrm{GI}} \le t \le T_{\mathrm{GI}}+T \\
+            0, & \text{otherwise}
+        \end{cases}
+    \]
+    \[
+        A(f) = T \, \mathrm{sinc}(fT)\, e^{-j2\pi f (T_{\mathrm{GI}} + T/2)}.
+    \]
+    \item Subcarrier with GI:
+    \begin{align*} 
+        \hat{x}(t) &= a(t)\,e^{j2\pi f_0 t} \\
+        \hat{X}(f) &= A(f) * \delta(f-f_0) = A(f-f_0).
+    \end{align*}
+    Due to GI, the spectrum becomes a shifted sinc (not a perfect delta).
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(6/13)}
+    \begin{itemize}
+        \item Linear convolution vs. Circular convolution
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{CP_6.png}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(7/13)}
+    \begin{itemize}
+        \item Linear convolution vs. Circular convolution
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.65\textwidth]{circular.jpg}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(8/13)}
+    \begin{itemize}
+        \item Linear convolution vs Circular convolution 
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{Linear_convolution_vs_Circular_convolution.eps}
+  \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(9/13)}
+    \begin{itemize}
+        \item Channel effect with cyclic prefix
+    \end{itemize} 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{CP_7.png}
+    \end{figure}   
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+  \frametitle{Cyclic Prefix(10/13)}
+  \begin{itemize}
+    \item Spectrum of channel $h[n]$ response with length $L_{h}$ (smaller than $N_{g}$ )\\
+    $H_{k}=\mathrm{FFT}\{h[n]\}$\\
+    \item Received complete OFDM signal\\
+    $\tilde{r}[n]=\tilde{D}[n]\bigotimes h[n]$, $0\leq n\leq N+N_{g}+L_{h}-2$\\
+    \item Received useful part $r[n]$\\
+    $r[n]=D[n]\bigotimes_{N}h[n]$\\
+    where $\bigotimes_{N}$is N-point circular convolution (due to CP)\\
+    \item Received symbol at k-th subcarrier\\
+    $Y_{k}=\mathrm{FFT}\{r[n]\}=\mathrm{FFT}\{D[n]\bigotimes_{N}h[n]\}=X_{k}H_{k}$\\
+    \( \Rightarrow X_{k} = \frac{Y_{k}}{H_{k}} \)\\
+    “Useful property for OFDM system to reduce complexity of channel equalization”.
+  \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(11/13)}
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{block_diagram.jpg}
+    \end{figure} 
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(12/13)}
+    \begin{itemize}
+        \item Remove Cyclic Prefix
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.85\textwidth]{cp12.png}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Cyclic Prefix(13/13)}
+    \begin{itemize}
+        \item One of the most important reasons to do OFDM is the efficient way it deals with multipath delay spread.
+        \item To eliminate inter-symbol interference (ISI) almost completely, a CP duration time ($\Delta$) is introduced for each OFDM symbol.\\
+        (The CP duration time is chosen larger than the maximum delay spread ($\tau$))
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.85\textwidth]{cp11.png}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Bandwidth Efficiency}
+    \begin{itemize}
+        \item In a classical parallel system, the channel is divided into
+            N non-overlapping sub-channels to avoid inter-carrier interference (ICI).
+        \item The diagram for bandwidth efficiency of OFDM system is shown below:
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.6\textwidth]{CP_8.png}
+        \end{figure}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Summary}
+    \begin{itemize}
+        \item The advantage of the FFT-based OFDM system:
+        \begin{itemize}
+            \item The use of IFFT/FFT can reduce the computation complexity.
+            \item The orthogonality between the adjacent sub-carriers will make the use of transmission bandwidth more efficient.
+            \item The guard interval is used to resist the inter-symbol interference (ISI).
+            \item The main advantage of the OFDM transmission technique is its high performance even in frequency selective channels.
+        \end{itemize}
+    \end{itemize}
+    \begin{itemize}
+        \item The drawbacks of the OFDM system :
+        \begin{itemize}
+            \item It is highly vulnerable to synchronization errors.
+            \item Peak to Average Power Ratio (PAPR) problems
+            \[
+                \hspace{-1.5cm} PAPR = \frac{max.\ power\ of\ subcarriers}{avg.\ power\ of\ subcarriers}
+            \]
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Proof\ \ \ \textbf{$Y_{k}=X_{k}H_{k}$}\\
+  \begin{itemize}
+    \item Uisng the definition of the DFT:
+    \[X_{k} = DFT\bigg\{x[n]\bigg\} = \sum_{n=0}^{N-1}x[n]e^\frac{-j2{\pi}kn}{N}\]
+  \[x[n] = IDFT\bigg\{X_{k}\bigg\} = \frac{1}{N}\sum_{k=0}^{N-1}X_{k}e^\frac{j2{\pi}kn}{N}\]
+    \item Then, we can write the transform equation for $H_{k}$.
+    \[H_{k} = \sum_{m=0}^{N-1}h[m]e^\frac{-j2{\pi}km}{N},\ m=0,1,2,...,N-1\]
+  \end{itemize}
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Continued from previous page: 
+  \begin{align*}
+  Y_{k} & = \bigg[\sum_{n=0}^{N-1}x[n]e^\frac{-j2{\pi}kn}{N}\bigg]\bigg[\sum_{m=0}^{N-1}h[m]e^\frac{-j2{\pi}km}{N}\bigg] \\
+  y[n] & =\ \frac{1}{N}\sum_{k=0}^{N-1}\bigg[\sum_{l=0}^{N-1}x[l]e^\frac{-j2{\pi}kl}{N}\bigg]\bigg[\sum_{m=0}^{N-1}h[m]e^\frac{-j2{\pi}km}{N}\bigg]e^\frac{j2{\pi}kn}{N} \\
+   & =\ \frac{1}{N}\sum_{l=0}^{N-1}x[l]\sum_{m=0}^{N-1}h[m]\bigg[\sum_{k=0}^{N-1}e^\frac{j2{\pi}k(n-l-m)}{N}\bigg]
+\end{align*}
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Now, we see that the item in brackets can be evaluated as
+  \begin{equation*}
+    \sum_{k=0}^{N-1}e^\frac{j2{\pi}k(n-l-m)}{N} =\begin{cases}
+                                                   N, & n-l-m =KN , \text{ for some integer } K \\
+                                                   0 , & otherwise
+                                                 \end{cases}
+  \end{equation*}
+  and, therefore
+  \[y[n] = \frac{1}{N}\sum_{l=0}^{N-1}x[l]\sum_{m=0}^{N-1}h[m]N\delta[n-l-m-KN]\]
+  \[(n-l-m)  \text{ mod N }\equiv  0 \text{ mod N }\]
+  Because the impulse function is zero expect when \[m \text{ mod N }\equiv(n-l) \text{ mod N }\], we can rewrite the equation as
+  \[y[n] = \sum_{l=0}^{N-1}x[l]h[n-l]_{mod\ N}\]
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+    \item Circular Convolution in Time Domain
+\[
+y[n] = \sum_{m=0}^{N-1} x[m]\, h[(n-m)\bmod N], \qquad n=0,\dots,N-1
+\]
+
+Take the DFT of $y[n]$:
+\[
+\begin{aligned}
+Y_k &= \sum_{n=0}^{N-1} y[n]\,e^{-j\frac{2\pi}{N}kn} \\[2mm]
+    &= \sum_{n=0}^{N-1}\sum_{m=0}^{N-1} x[m]\;h[(n-m)\bmod N]\;e^{-j\frac{2\pi}{N}kn}.
+\end{aligned}
+\]
+\end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------%
+
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Continued from previous page:
+\end{itemize}
+
+\hspace*{2em} 
+Let $r=(n-m)\bmod N$ \\
+
+\vspace{1em}
+
+\[
+\begin{aligned}
+Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} \\[2mm]
+    &= \Biggl(\sum_{m=0}^{N-1} x[m]\,e^{-j\frac{2\pi}{N}km}\Biggr)
+       \Biggl(\sum_{r=0}^{N-1} h[r]\,e^{-j\frac{2\pi}{N}kr}\Biggr) \\[2mm]
+    &= X_k H_k.
+\end{aligned}
+\]
+
+\vspace{1em}
+
+\[
+\boxed{Y_k = X_k H_k}
+\]
+\end{frame}
+
+%----------------------------------------------------------------------------%
+
+
+
+
+
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Circular convolution:
+  \[y[n] = x[n]\bigotimes_{N}h[n] = \sum_{l=0}^{N-1}x[l]h[n-l]_{mod\ N}\]
+  As a result, we can get the DFT pair:
+  \[y[n]=x[n]\bigotimes_{N}h[n] \leftrightarrow\ Y_{k}=X_{k}H_{k}\] 
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Integrate the Exponential Function
+  
+  To integrate this, we use the formula for the integral of an exponential function:   
+    \[
+    \int e^{j\omega t} \, dt = \frac{e^{j\omega t}}{j\omega}
+    \]
+    Here, \(\omega = 2\pi \frac{p - q}{N\Delta t}\). Applying this to our integral:
+    \[
+    \int_a^b e^{j2\pi(\frac{p - q}{N\Delta t})t} \, dt = \left[ \frac{e^{j2\pi(\frac{p - q}{N\Delta t})t}}{j2\pi(\frac{p - q}{N\Delta t})} \right]_a^b
+    \]
+ 
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Evaluate the Integral from \(a\) to \(b\)
+  
+  Substituting the limits \(a\) and \(b\) into the expression:
+    \[
+    \frac{1}{j2\pi(\frac{p - q}{N\Delta t})} \left( e^{j2\pi(\frac{p - q}{N\Delta t})b} - e^{j2\pi(\frac{p - q}{N\Delta t})a} \right)
+    \]
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Given that \(b = a + N\Delta t\), substitute this into the expression
+  
+   \[
+    e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) b} = e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) (a + N\Delta t)}
+    \]
+
+     Utilizing the property of exponents \(e^{j(\alpha + \beta)} = e^{j\alpha} e^{j\beta}\), we can rewrite the expression as:
+
+     \[
+    e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) b} = e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a} \cdot e^{j2\pi (p-q)}
+    \]
+
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Since \(p - q\) is an integer, \(e^{j2\pi (p-q)} = 1\). This is due to the periodic nature of the complex exponential function, where the result returns to 1 every time the angle is a multiple of \(2\pi\)
+  
+    \[
+    e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) b} = e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a}
+    \]
+
+    substitute these results back into the integral expression
+    \[
+    \frac{1}{j2\pi \left( \frac{p-q}{N\Delta t} \right)} \left( e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a} \cdot e^{j2\pi (p-q)} - e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a} \right)
+    \]
+
+
+    Rearranging terms:
+
+     \[
+    \frac{1}{j2\pi \left( \frac{p-q}{N\Delta t} \right)} \left( e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a} \cdot (1 - 1) \right)
+    \]
+
+
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
+  \item Result
+  
+  Since \(e^{j2\pi (p-q)} = 1\), we have \(1 - 1 = 0\). Thus, the entire expression ultimately simplifies to:
+
+
+    \[
+    \frac{1}{j2\pi \left( \frac{p-q}{N\Delta t} \right)} \cdot 0 = 0
+    \]
+
+\end{itemize}
+\end{frame}
+
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\setlength{\itemsep}{8pt}
+\begin{itemize}
+          
+    \item The Mixed-Radix Cooley-Tukey algorithm
+    \begin{itemize}
+        \setlength{\itemsep}{4pt}
+        \item Ideal for lengths that are not powers of two, it efficiently handles composite lengths.
+        \item Breaking down a DFT of size $N = N_1 \times N_2$ into smaller DFTs of sizes $N_1$ and $N_2$.
+        \item The algorithm reduces the time complexity from \(O(N^2)\) to \(O\left(N_1 \times N_2 \times (N_1 + N_2)\right) = O(N \times (N_1 + N_2))\).
+    \end{itemize}
+ 
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix}
+    \begin{itemize}
+        \item Mixed-Radix Cooley-Tukey Algorithm: \(N = 21, N_1 = 7, N_2 = 3\)
+    \end{itemize} 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.57\textwidth, trim=0cm 1cm 0cm 0.4cm, clip]{ifft_21.jpg}
+    \end{figure}   
+\end{frame}
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+    \begin{itemize}
+    \item The Mixed-Radix Cooley-Tukey algorithm is defined as the DFT:    
+    %\resizebox{0.9\textwidth}{!}{
+    %\begin{minipage}{\textwidth}
+            \[
+            X_k = \sum_{n=0}^{N-1} x_n e^{-\frac{2\pi i}{N}nk} \quad \text{for} \quad k = 0, \dots, N-1
+            \]
+
+            Given that \(N = N_1 \cdot N_2\)
+
+            Substituting \(n = n_1 + n_2 N_1\) and \(k = k_1 N_2 + k_2\), we have:
+            \begin{align*}
+            e^{-\frac{2\pi i}{N} nk} &= e^{-\frac{2\pi i}{N} (n_1 + n_2 N_1)(k_1 N_2 + k_2)} \\
+                                     &= e^{-\frac{2\pi i}{N} n_1 k_1 N_2} e^{-\frac{2\pi i}{N} n_1 k_2} e^{-\frac{2\pi i}{N} n_2 N_1 k_1 N_2} e^{-\frac{2\pi i}{N} n_2 N_1 k_2} \\
+                                     &= e^{-\frac{2\pi i}{N_1} n_1 k_1 } e^{-\frac{2\pi i}{N} n_1 k_2} e^{-\frac{2\pi i}{N_2} n_2 k_2}
+            \end{align*}
+    %\end{minipage}}
+    \end{itemize}
+    \begin{itemize}
+    \item The Mixed-Radix Cooley-Tukey Algorithm:
+            \[
+            X_{k_1 N_2 + k_2} = \sum_{n_1=0}^{N_1-1} \left( \sum_{n_2=0}^{N_2-1} \left( x_{n_1 + n_2 N_1} e^{-\frac{2\pi i}{N_2} n_2 k_2} \right) e^{-\frac{2\pi i}{N} n_1 k_2} e^{-\frac{2\pi i}{N_1} n_1 k_1} \right)
+            \]      
+    \end{itemize}
+\end{frame} 
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix}
+        \begin{itemize}
+        \item The Example of Cooley-Tukey Algorithm:    
+        %\resizebox{0.9\textwidth}{!}{
+        %\begin{minipage}{\textwidth}
+    
+                Given that \(N = 15, N_1 = 3, N_2 = 5\)
+    
+                Substituting \(n = n_1 + 3n_2\) and \(k = 5k_1 + k_2\), we have:
+                \begin{align*}
+                e^{-\frac{2\pi i}{N} nk} &= e^{-\frac{2\pi i}{15} (n_1 + 3n_2)(5k_1 + k_2)} \\
+                                         &= e^{-\frac{2\pi i}{15} 5n_1 k_1 } e^{-\frac{2\pi i}{15} n_1 k_2} e^{-\frac{2\pi i}{15} 15n_2 k_1} e^{-\frac{2\pi i}{15} 3n_2 k_2} \\
+                                         &= e^{-\frac{2\pi i}{3} n_1 k_1 } e^{-\frac{2\pi i}{15} n_1 k_2} e^{-\frac{2\pi i}{5} n_2 k_2}
+                \end{align*}
+        %\end{minipage}}
+        \end{itemize}
+        \begin{itemize}
+        \item The Mixed-Radix Cooley-Tukey Algorithm:
+                \[
+                X_{5k_1 + k_2} = \sum_{n_1=0}^{3-1} \left( \sum_{n_2=0}^{5-1} \left( x_{n_1 + 3n_2} e^{-\frac{2\pi i}{5} n_2 k_2} \right) e^{-\frac{2\pi i}{15} n_1 k_2} e^{-\frac{2\pi i}{3} n_1 k_1} \right)
+                \]      
+        \end{itemize}
+    \end{frame} 
+
+\end{document}  
