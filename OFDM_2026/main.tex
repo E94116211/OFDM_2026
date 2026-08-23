@@ -599,6 +599,7 @@
         \includegraphics[width=0.8\textwidth]{Timing_Synchronization_Error_ISI.eps}
     \end{figure}
 \end{frame}
+%-----------------------------------------------------------------------------%
 \begin{frame}
     \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
     \begin{figure}
@@ -606,12 +607,65 @@
         \includegraphics[width=0.8\textwidth]{Timing_Synchronization_Error_ICI.eps}
     \end{figure}
 \end{frame}
+%-----------------------------------------------------------------------------%
 \begin{frame}
     \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{time_synchronization_error_ICI_2.eps}
     \end{figure}  
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+\begin{itemize}
+  \item Proof:
+  \begin{itemize}
+    \item In the demodulation window of FFT,
+    \\$x(t)=\begin{cases}
+    X_{1}^{prev}e^{j2\pi f_{1}(t+0.1)}\ +\ X_{2}^{prev}e^{j2\pi f_{2}(t+0.1)},&-0.1\le t<0\\
+    X_{1}^{curr}e^{j2\pi f_{1}t}\ +\ X_{2}^{curr}e^{j2\pi f_{2}t},&0\le t<0.4
+    \end{cases}$
+    \item Number of sampling points=N, $T_s=\frac{0.5}{N}s$, $f_{1}=2$Hz, $f_{2}=4$Hz
+    \\$x[n]=\begin{cases}
+    X_{1}^{prev}e^{j2\pi f_{1}(nT_{s}+0.1)}\ +\ X_{2}^{prev}e^{j2\pi f_{2}(nT_{s}+0.1)},&-0.2N\le n<0\\
+    X_{1}^{curr}e^{j2\pi f_{1}nT_{s}}\ +\ X_{2}^{curr}e^{j2\pi f_{2}nT_{s}},&0\le n<0.8N
+    \end{cases}$
+    \\ \item We see only the current symbol in the demodulation window of FFT.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+\begin{itemize}
+  \item In the frequency domain, 
+  $Y[k]=\frac{1}{N}\sum_{n=0}^{0.8N-1}(X_{1}^{curr}e^{j2\pi \frac{1}{N}}\ +\ X_{2}^{curr}e^{j2\pi \frac{2}{N}})e^{-j2\pi \frac{k}{N}n}$
+  \\$Y[k]=X_{1}^{curr}\cdot \beta_{m\rightarrow k}+X_{1}^{curr}\cdot \beta_{m\rightarrow k},\ m\in [1,2]$
+  \item When $m=k$,
+  \\$\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{0.8N-1}1=\frac{0.8N}{N}=0.8$
+  \item When $m\not= k$, 
+  \\$\beta_{1\rightarrow 2}=\frac{1}{N}\frac{1-e^{-j2\pi (0.8)}}{1-e^{-j2\pi \frac{1}{N}}}\not= 0$
+  \\$\beta_{2\rightarrow 1}=\frac{1}{N}\frac{1-e^{j2\pi (0.8)}}{1-e^{j2\pi \frac{1}{N}}}\not= 0$
+  \item $Y[1]=0.8X_{1}^{curr}+\beta_{2\rightarrow 1}X_{2}^{curr}$
+  \\$Y[2]=0.8X_{2}^{curr}+\beta_{1\rightarrow 2}X_{1}^{curr}$
+  \item The subcarrier experiences energy loss and generates ICI.
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+\begin{itemize}
+  \item If no timing synchronization error, $Y[k]=X_{k}^{curr}$
+  \item Proof:
+  \begin{itemize}
+    \item When $m=k$,
+    \\$\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{N-1}1=\frac{N}{N}=1$
+    \item When $m\not= k$,
+    \\$\beta_{1\rightarrow 2}=\frac{1}{N}\frac{1-e^{-j2\pi (1)}}{1-e^{-j2\pi \frac{1}{N}}}= 0$
+    \\$\beta_{2\rightarrow 1}=\frac{1}{N}\frac{1-e^{j2\pi (1)}}{1-e^{j2\pi \frac{1}{N}}}= 0$
+  \end{itemize}
+\end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
