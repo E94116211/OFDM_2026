@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (MiKTeX 26.5) (preloaded format=xelatex 2026.8.22)  22 AUG 2026 17:25
+This is XeTeX, Version 3.141592653-2.6-0.999998 (MiKTeX 26.5) (preloaded format=xelatex 2026.8.22)  23 AUG 2026 17:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1914,8 +1914,8 @@ Overfull \hbox (1.49442pt too wide) in paragraph at lines 615--615
 
 File: SpaceComm LOGO_Black_ Horizontal 1.png Graphic file (type bmp)
 <SpaceComm LOGO_Black_ Horizontal 1.png>
-File: ICI_2-plus.pdf Graphic file (type pdf)
-<use ICI_2-plus.pdf>
+File: time_synchronization_error_ICI_2.eps Graphic file (type eps)
+<time_synchronization_error_ICI_2.eps>
 File: SpaceComm LOGO_Black_ Horizontal 1.png Graphic file (type bmp)
 <SpaceComm LOGO_Black_ Horizontal 1.png>
 
@@ -2628,10 +2628,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 28931 strings out of 402620
- 623481 string characters out of 5438883
- 1047350 words of memory out of 5000000
- 57440 multiletter control sequences out of 15000+600000
+ 28965 strings out of 402620
+ 625097 string characters out of 5438883
+ 1048350 words of memory out of 5000000
+ 57475 multiletter control sequences out of 15000+600000
  640745 words of font info for 116 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,18n,123p,578b,596s stack positions out of 10000i,1000n,20000p,200000b,200000s
