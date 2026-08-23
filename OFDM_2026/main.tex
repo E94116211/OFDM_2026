@@ -622,16 +622,17 @@
   \item Proof:
   \begin{itemize}
     \item In the demodulation window of FFT,
-    \\$x(t)=\begin{cases}
+    \\{\scriptsize
+    \[x(t)=\begin{cases}
     X_{1}^{prev}e^{j2\pi f_{1}(t+0.1)}\ +\ X_{2}^{prev}e^{j2\pi f_{2}(t+0.1)},&-0.1\le t<0\\
     X_{1}^{curr}e^{j2\pi f_{1}t}\ +\ X_{2}^{curr}e^{j2\pi f_{2}t},&0\le t<0.4
-    \end{cases}$
+    \end{cases}\]}
     \item Number of sampling points=N, $T_s=\frac{0.5}{N}s$, $f_{1}=2$Hz, $f_{2}=4$Hz
-    \\$x[n]=\begin{cases}
+    \\{\scriptsize
+    \[x[n]=\begin{cases}
     X_{1}^{prev}e^{j2\pi f_{1}(nT_{s}+0.1)}\ +\ X_{2}^{prev}e^{j2\pi f_{2}(nT_{s}+0.1)},&-0.2N\le n<0\\
     X_{1}^{curr}e^{j2\pi f_{1}nT_{s}}\ +\ X_{2}^{curr}e^{j2\pi f_{2}nT_{s}},&0\le n<0.8N
-    \end{cases}$
-    \\ \item We see only the current symbol in the demodulation window of FFT.
+    \end{cases}\]}
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -640,16 +641,47 @@
 \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
 \begin{itemize}
   \item In the frequency domain, 
-  $Y[k]=\frac{1}{N}\sum_{n=0}^{0.8N-1}(X_{1}^{curr}e^{j2\pi \frac{1}{N}}\ +\ X_{2}^{curr}e^{j2\pi \frac{2}{N}})e^{-j2\pi \frac{k}{N}n}$
-  \\$Y[k]=X_{1}^{curr}\cdot \beta_{m\rightarrow k}+X_{1}^{curr}\cdot \beta_{m\rightarrow k},\ m\in [1,2]$
+  \begin{flalign*}
+    &Y[k]&
+    \\=&\frac{1}{N}\sum_{n=-0.2N}^{-1}\sum_{m=1}^{2}(X_{m}^{prev}e^{j2\pi f_{m}0.1 e^{j2\pi \frac{m}{N}n}})e^{-j2\pi \frac{k}{N}n}&
+    \\+&\frac{1}{N}\sum_{n=0}^{0.8N-1}\sum_{m=1}^{2}(X_{m}^{curr}e^{j2\pi \frac{m}{N}})e^{-j2\pi \frac{k}{N}n}&
+    \\=&\sum_{m=1}^{2}X_{m}^{prev}\cdot \alpha_{m\rightarrow k}+\sum_{m=1}^{2}X_{m}^{curr}\cdot \beta_{m\rightarrow k}&
+  \end{flalign*}
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+\begin{itemize}
   \item When $m=k$,
-  \\$\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{0.8N-1}1=\frac{0.8N}{N}=0.8$
+  \begin{flalign*}
+    &\alpha_{k\rightarrow k} =\frac{e^{j0.2\pi f_{k}}}{N}(0.2N)=0.2\cdot e^{j0.2\pi f_{k}} \not= 0\ \ \text{(ISI)} &\\
+    &\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{0.8N-1}1=\frac{0.8N}{N} =0.8\ \ \text{(ICI)}&
+  \end{flalign*}
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+\begin{itemize}
   \item When $m\not= k$, 
-  \\$\beta_{1\rightarrow 2}=\frac{1}{N}\frac{1-e^{-j2\pi (0.8)}}{1-e^{-j2\pi \frac{1}{N}}}\not= 0$
-  \\$\beta_{2\rightarrow 1}=\frac{1}{N}\frac{1-e^{j2\pi (0.8)}}{1-e^{j2\pi \frac{1}{N}}}\not= 0$
-  \item $Y[1]=0.8X_{1}^{curr}+\beta_{2\rightarrow 1}X_{2}^{curr}$
-  \\$Y[2]=0.8X_{2}^{curr}+\beta_{1\rightarrow 2}X_{1}^{curr}$
-  \item The subcarrier experiences energy loss and generates ICI.
+  \begin{flalign*}
+    &\alpha_{m\rightarrow k}=\frac{e^{j0.2\pi f_{m}}}{N}\frac{e^{\pm j2\pi (-0.2)-1}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ISI, ICI)}&\\
+    &\beta_{m\rightarrow k}=\frac{1}{N}\frac{1-e^{\pm j2\pi (0.8)}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ICI)}&
+  \end{flalign*}
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+\begin{itemize}
+    \item Current subcarrier signals:\\
+    \[\begin{cases}
+    Y[1]=0.8X_{1}^{curr}+\beta_{2\rightarrow 1}X_{2}^{curr}\\
+    Y[2]=0.8X_{2}^{curr}+\beta_{1\rightarrow 2}X_{1}^{curr}
+    \end{cases}\]
+    \item The subcarrier experiences energy loss and generates ICI.
+    \item Also, the previous subcarrier signals will generate ISI and ICI to the current subcarrier signals.
 \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -660,10 +692,10 @@
   \item Proof:
   \begin{itemize}
     \item When $m=k$,
-    \\$\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{N-1}1=\frac{N}{N}=1$
+    \\\[\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{N-1}1=\frac{N}{N}=1\]
     \item When $m\not= k$,
-    \\$\beta_{1\rightarrow 2}=\frac{1}{N}\frac{1-e^{-j2\pi (1)}}{1-e^{-j2\pi \frac{1}{N}}}= 0$
-    \\$\beta_{2\rightarrow 1}=\frac{1}{N}\frac{1-e^{j2\pi (1)}}{1-e^{j2\pi \frac{1}{N}}}= 0$
+    \\\[\beta_{1\rightarrow 2}=\frac{1}{N}\frac{1-e^{-j2\pi (1)}}{1-e^{-j2\pi \frac{1}{N}}}= 0\]
+    \\\[\beta_{2\rightarrow 1}=\frac{1}{N}\frac{1-e^{j2\pi (1)}}{1-e^{j2\pi \frac{1}{N}}}= 0\]
   \end{itemize}
 \end{itemize}
 \end{frame}
