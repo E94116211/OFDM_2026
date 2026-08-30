@@ -8,7 +8,7 @@
 
 
 % ------ 套件導入 ------
-\usepackage{amsmath,amssymb,mathtools} % 數學符號和公式
+\usepackage{amsmath,amssymb} % 數學符號和公式
 \usepackage{epsfig,graphicx} % 圖片插入
 \usepackage{fancyhdr} % 高級頁眉頁腳
 \usepackage{color} % 顏色
@@ -20,7 +20,6 @@
 \usepackage{bm} % 粗體數學符號
 \usepackage{bibentry} % 不生成參考文獻列表
 %\usepackage{epstopdf} % EPS圖片轉PDF
-\usepackage{tikz}
 
 
 
@@ -443,14 +442,13 @@
 
 
 \begin{frame}
-    \frametitle{Orthogonality (1/17)}
+    \frametitle{Orthogonality (1/10)}
     \begin{itemize}
         \item Consider a set of transmitted carriers as follows:
         \begin{equation}
             \psi_{n}(t)=e^{j2\pi(f_{0}+\frac{n}{N\Delta t})t}
             \, \text{ for }\, n=0,1,...,N-1\,\text{ and }\,\Delta f=\frac{1}{N\Delta t}.
         \end{equation}
-        \item $f_0$ : frequency of the 0-th subcarrier.
     \end{itemize}
     \begin{itemize}
         \item  We now show that every two carriers are orthogonal to each other. (proof is in next page)
@@ -470,100 +468,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (2/17)}
-    \begin{itemize}
-        \item Let $T = N\Delta t$ be the symbol duration, assuming the $p$-th and $q$-th subcarriers have frequencies $f_p = f_0 + p\Delta f$ and $f_q = f_0 + q\Delta f$.
-        \item The integration is:
-        \begin{align*}
-            \int_0^{T} \psi_p(t)\psi_q^*(t)dt &= \int_0^{T} e^{j2\pi(p-q)\Delta f t} dt \\
-            &= \frac{e^{j2\pi(p-q)\Delta f T} - 1}{j2\pi(p-q)\Delta f}
-        \end{align*}
-        \item For orthogonality:
-        \begin{equation*}
-            (p-q)\Delta f T = k \quad (k \in \mathbb{Z}, k \neq 0)
-        \end{equation*}
-        \item To find the minimum spacing for adjacent subcarriers ($|p-q|=1$), we set $k = 1$:
-        \begin{equation*}
-            \Delta f = \frac{1}{T} = \frac{1}{N\Delta t}
-        \end{equation*}
-    \end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Orthogonality (3/17)}
-    \begin{itemize}
-        \item The generalized condition for subcarrier spacing is:
-    \end{itemize}
-    
-    \begin{center}
-        $\Delta f = \frac{k}{N\Delta t} \quad (k \in \mathbb{Z}, k \neq 0)$ \\
-        \vspace{0.2cm}
-    \end{center}
-    
-    \begin{figure}
-        \centering
-        \setlength{\tabcolsep}{5pt} % 控制兩張圖之間的距離，讓它們靠近一點
-        \begin{tabular}{cc}
-            % 縮小寬度比例至 0.42，讓兩張圖在畫面上更集中、更靠近
-            \includegraphics[width=0.45\textwidth]{k_15_freq.png} &
-            \includegraphics[width=0.45\textwidth]{k_20_freq.png} 
-        \end{tabular}
-    \end{figure}
-    
-    \vspace{0.3cm} % 在最下方強制留出空白
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Orthogonality (4/17)}
-    \begin{itemize}
-        \item Transmitted signal can be modeled as a rectangular pulse of length $N\Delta t$:
-    \end{itemize}
-    \vspace{0.3cm}
-    \begin{center}
-       {\Large
-        $\text{rect}\left(\frac{t}{N\Delta t}\right) \xleftrightarrow{\mathcal{F}} N\Delta t \cdot \text{sinc}(f \cdot N\Delta t)$
-        } 
-        \vspace{0.6cm} % 拉開數學式與下面圖片的距離
-        
-        \begin{tikzpicture}[scale=1.0, thick, every node/.style={scale=0.9}]
-            % --- Time Domain ---
-            \begin{scope}[xshift=-3.1cm]
-                \draw[->] (-2.2, 0) -- (2.5, 0) node[right] {$t$};
-                \draw[->] (0, -0.6) -- (0, 1.8) node[above] {Amplitude};
-                
-                % 方波以 0 為中心，左右對稱
-                \draw[blue, thick] (-1.2, 0) -- (-1.2, 1.2) -- (1.2, 1.2) -- (1.2, 0);
-                
-                \node[below] at (-1.2, -0.1) {$-\frac{N\Delta t}{2}$};
-                \node[below] at (1.2, -0.1) {$\frac{N\Delta t}{2}$};
-                
-                % 標示總長度 N\Delta t (置於方波正下方)
-                \draw[<->] (-1.2, -0.8) -- (1.2, -0.8) node[midway, below] {$N\Delta t$};
-            \end{scope}
-
-            % --- Frequency Domain ---
-            \begin{scope}[xshift=3.1cm]
-                \draw[->] (-2.8, 0) -- (2.8, 0) node[right] {$f$};
-                \draw[->] (0, -0.6) -- (0, 1.8) node[above] {Magnitude};
-                
-                % 繪製 sinc 函數
-                \draw[red, thick, domain=-2.8:-0.05, samples=50] plot (\x, {1.2*sin(\x*180)/(3.1415*\x)});
-                \draw[red, thick, domain=0.05:2.8, samples=50] plot (\x, {1.2*sin(\x*180)/(3.1415*\x)});
-                \draw[red, thick] (-0.05, 1.198) -- (0, 1.2) -- (0.05, 1.198); % Peak
-                
-                % 標示零點與向上的虛線
-                \draw[dashed, semithick] (1, 0) -- (1, 0.4);
-                \node[below] at (1, -0.1) {$\frac{1}{N\Delta t}$};
-                
-                \draw[dashed, semithick] (-1, 0) -- (-1, 0.4);
-                \node[below] at (-1, -0.1) {$-\frac{1}{N\Delta t}$};
-            \end{scope}
-        \end{tikzpicture}
-    \end{center}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Orthogonality (5/17) --- Proof}
+    \frametitle{Orthogonality (2/10) --- Proof}
     \begin{itemize}
         \item $p=q$
         \begin{align*}
@@ -577,22 +482,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (6/17) --- Proof}
-    \begin{itemize}
-        \item For the $p$-th subcarrier, the correlation coefficient over the interval $[a, b]$ is defined as:
-        \begin{equation*}
-            \rho = \frac{\int_a^b \psi_p(t)\psi_p^*(t)dt}{\sqrt{\int_a^b |\psi_p(t)|^2 dt \int_a^b |\psi_p^*(t)|^2 dt}}
-        \end{equation*}
-        \item The denominator becomes $\sqrt{(b-a) \cdot (b-a)} = b - a$.
-        \item Thus, the correlation coefficient is exactly:
-        \begin{equation*}
-            \rho = \frac{b - a}{b - a} = 1
-        \end{equation*}
-    \end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Orthogonality (7/17) --- Proof}
+    \frametitle{Orthogonality (3/10) --- Proof}
     \begin{itemize}
         \item $p=q$, which $\psi_{q}(t)$ delay c
         \begin{align*}
@@ -607,19 +497,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (8/17)--- Proof}
-    \begin{itemize}
-        \item The fundamental relationship is:
-        \begin{equation*}
-            \text{Energy} = \text{Power} \times \text{Time}
-        \end{equation*}
-        \item Here, the observation time is $(b-a)$.
-        \item Therefore, the power of the signal is the constant $\mathbf{C}$.
-    \end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Orthogonality (9/17) --- Proof}
+    \frametitle{Orthogonality (4/10) --- Proof}
     \begin{itemize}
         \item $p\neq q$ and $(b-a)=N\Delta t$
         \begin{align*}
@@ -632,7 +510,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (10/17) --- Proof}
+    \frametitle{Orthogonality (5/10) --- Proof}
     \begin{itemize}
         \item Continued from previous page: 
         \begin{align*}
@@ -646,7 +524,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (11/17) --- Proof}
+    \frametitle{Orthogonality (6/10) --- Proof}
     \begin{itemize}
         \item $p\neq q$ and $(b-a)=N\Delta t$, which $\psi_{p}(t)$ delay c and $\psi_{q}(t)$ delay d 
         \begin{align*}
@@ -659,7 +537,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (12/17) --- Proof}
+    \frametitle{Orthogonality (7/10) --- Proof}
     \begin{itemize}
         \item Let ${e^{-j2\pi f_0c} e^{j2\pi f_0d} e^{-j2\pi(\frac{p}{N\Delta t})c} e^{j2\pi(\frac{q}{N\Delta t})d} = C}$ be a constant
     \end{itemize}
@@ -673,7 +551,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (13/17)}
+    \frametitle{Orthogonality (8/10)}
     \begin{itemize}
         \item Transmitted Signal
     \end{itemize}
@@ -685,7 +563,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (14/17)}
+    \frametitle{Orthogonality (9/10)}
     \begin{itemize}
         \item Transmitted Signal in time domain
     \end{itemize}
@@ -696,7 +574,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Orthogonality (15/17)}
+    \frametitle{Orthogonality (10/10)}
     \begin{itemize}
         \item Transmitted Signal in frequency domain
     \end{itemize}
