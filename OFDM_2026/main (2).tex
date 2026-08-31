@@ -615,7 +615,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Mathematical Expression of OFDM Signal (1/3)}
+    \frametitle{Mathematical Expression of OFDM Signal (1/4)}
     \begin{itemize}
         \item Frequency Division Multiplexing
     \end{itemize}
@@ -627,7 +627,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Mathematical Expression of OFDM Signal (2/3)}
+    \frametitle{Mathematical Expression of OFDM Signal (2/4)}
     \begin{itemize}
         \item From above, we know that $\psi_{n}(t)$  is the orthogonal signal set. An OFDM signal based on this orthogonal signal set can be written as:
         \begin{equation} 
@@ -638,11 +638,12 @@
             f_{n}&=f_{0}+\frac{n}{T},&T=N\Delta t\\
             d_{k,n}&=a_{k,n}+jb_{k,n}\\
         \end{align*}
+        \item  $d_{k,n}$: transmitted data on the $n$-th carrier of the $k$-th symbol.
     \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Mathematical Expression of OFDM Signal (3/3)}
+    \frametitle{Mathematical Expression of OFDM Signal (3/4)}
     \begin{itemize}
         \item T : OFDM symbol duration
         \item  $d_{k,n}$: transmitted data on the $n$-th carrier of the $k$-th symbol.
@@ -655,6 +656,18 @@
             x(t)=\sum_{n=0}^{N-1}\{a(n)\cos{(2{\pi}f_{n}t)}-b(n)\sin{(2{\pi}f_{n}t)}\}
         \end{equation}
     \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Mathematical Expression of OFDM Signal (4/4)}
+    \begin{itemize}
+        \item Visualization of the mathematical expression (for $N = 5$)
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{FDM_final.eps}
+
+    \end{figure}
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
