@@ -707,11 +707,33 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Frequency Error Result in Inter-Carrier Interference (ICI)}
+    \frametitle{Frequency Error Result in Inter-Carrier Interference (ICI) (1/2)}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{ICI.eps}
+        \includegraphics[width=0.8\textwidth]{frequency_error_ICI.eps}
     \end{figure}  
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Frequency Error Result in Inter-Carrier Interference (ICI) (2/2)}
+    \begin{itemize}
+        \item There are a few possible causes of frequency errors.
+        \item Carrier Frequency Offset (CFO):
+        \begin{itemize}
+            \item Local Oscillator Mismatch of TX/RX
+            \item Doppler Frequency Shift
+        \end{itemize}
+        \item Sampling Clock Offset (SCO):
+        \begin{itemize}
+            \item ADC/DAC Clock Mismatch
+            \item The offset is proportional to the subcarrier index.
+        \end{itemize}
+        \item Phase Noise:
+        \begin{itemize}
+            \item Local Oscillator Short-term Instability
+            \item Construct a zero-mean Wiener random process to model the phase noise.
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
@@ -1459,5 +1481,61 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
                 \]      
         \end{itemize}
     \end{frame} 
-
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (1/4)}
+    \begin{itemize}
+      \item Frequency offset equation:
+        \begin{equation*}
+            f_{\text{offset}} = f_c - f_c'
+        \end{equation*}
+        where:
+        \begin{itemize}
+            \item $f_c$: subcarrier's frequency of transmitter
+            \item $f_c'$: subcarrier's frequency of receiver
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (2/4)}
+    \begin{itemize}
+      \item
+      \begin{equation*}
+        \epsilon = \frac{f_{\text{offset}}}{\Delta f},\ \Delta f = \frac{1}{N \Delta t}
+      \end{equation*}
+      \item
+      \begin{equation*}
+        \delta(f - \epsilon)\ \longrightarrow \ \exp(j 2\pi n \epsilon)
+      \end{equation*}
+      \item Assume no other phase noise, the received signal can be expressed as:\\
+      \begin{equation*}
+        Y_{l}[n] = \underbrace{\frac{1}{N} \sum_{k=0}^{N-1} H[k]X_{l}[k] e^{j 2\pi n (k+\epsilon)/N}}_{\text{IDFT signal + CFO, l means the l-th subcarrier}} + \underbrace{z_{l}[n]}_{\text{AWGN}}
+      \end{equation*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (3/4)}
+    \begin{figure}
+      \centering
+      \includegraphics[width=1\textwidth]{CFO_1.png}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (4/4)}
+    \begin{itemize}
+      \item
+      \begin{equation*}
+        \epsilon=\epsilon_{i}+\epsilon_{f}
+      \end{equation*}
+      \begin{itemize}
+        \item $\epsilon_{i}$ is the integer multiple of $\Delta f$ (iCFO/IFO).
+        \item $\epsilon_{f}$ is the fractional multiple of $\Delta f$ (fCFO/FFO).
+      \end{itemize}
+      \item If iCFO exists, carriers are still orthogonal, but BER increases.
+      \item If fCFO exists, carriers are not orthogonal, and ICI occurs.
+    \end{itemize}
+\end{frame}
 \end{document}  
