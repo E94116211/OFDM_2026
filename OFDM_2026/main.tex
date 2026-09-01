@@ -369,7 +369,8 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{Delay_spread.eps}
+        \includegraphics[width=0.75\textwidth]{multipath_2.jpg}
+        %original fig: Delay_spread.eps%
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
@@ -1530,11 +1531,11 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
 \begin{frame}
     \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (2/4)}
     \begin{itemize}
-      \item
+      \item CFO:
       \begin{equation*}
         \epsilon = \frac{f_{\text{offset}}}{\Delta f},\ \Delta f = \frac{1}{N \Delta t}
       \end{equation*}
-      \item
+      \item The offset in the time domain and in the frequency domain:
       \begin{equation*}
         \delta(f - \epsilon)\ \longrightarrow \ \exp(j 2\pi n \epsilon)
       \end{equation*}
@@ -1556,7 +1557,7 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
 \begin{frame}
     \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (4/4)}
     \begin{itemize}
-      \item
+      \item CFO can be decomposed into integer and fractional parts:
       \begin{equation*}
         \epsilon=\epsilon_{i}+\epsilon_{f}
       \end{equation*}
