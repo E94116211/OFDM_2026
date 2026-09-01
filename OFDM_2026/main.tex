@@ -1206,9 +1206,26 @@
 \begin{frame}
 \frametitle{Appendix}
 \begin{itemize}
+  \item Coherent Bandwidth\\
+  \begin{itemize}
+    \item Spaced-frequency correlation function:
+    \begin{equation*}
+        R(\Delta f) = E\big[H(f,t)\,H^{*}(f+\Delta f,\,t)\big]
+    \end{equation*}
+    \item Coherence Bandwidth is defined as the value of $\Delta f$ for which $|R(\Delta f)|$ is above a certain threshold (e.g., 0.5 or 0.9).
+    \begin{equation*}
+    B_c \approx \Delta f \quad \text{s.t.} \quad |R(\Delta f)| = \text{threshold}
+    \end{equation*}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix}
+\begin{itemize}
   \item Proof\ \ \ \textbf{$Y_{k}=X_{k}H_{k}$}\\
   \begin{itemize}
-    \item Uisng the definition of the DFT:
+    \item Using the definition of the DFT:
     \[X_{k} = DFT\bigg\{x[n]\bigg\} = \sum_{n=0}^{N-1}x[n]e^\frac{-j2{\pi}kn}{N}\]
   \[x[n] = IDFT\bigg\{X_{k}\bigg\} = \frac{1}{N}\sum_{k=0}^{N-1}X_{k}e^\frac{j2{\pi}kn}{N}\]
     \item Then, we can write the transform equation for $H_{k}$.
