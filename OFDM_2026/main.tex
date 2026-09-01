@@ -717,21 +717,12 @@
 \begin{frame}
     \frametitle{Frequency Error Result in Inter-Carrier Interference (ICI) (2/2)}
     \begin{itemize}
-        \item There are a few possible causes of frequency errors.
-        \item Carrier Frequency Offset (CFO):
+        \item There are a few possible causes of frequency errors:
         \begin{itemize}
             \item Local Oscillator Mismatch of TX/RX
             \item Doppler Frequency Shift
-        \end{itemize}
-        \item Sampling Clock Offset (SCO):
-        \begin{itemize}
             \item ADC/DAC Clock Mismatch
-            \item The offset is proportional to the subcarrier index.
-        \end{itemize}
-        \item Phase Noise:
-        \begin{itemize}
             \item Local Oscillator Short-term Instability
-            \item Construct a zero-mean Wiener random process to model the phase noise.
         \end{itemize}
     \end{itemize}
 \end{frame}
