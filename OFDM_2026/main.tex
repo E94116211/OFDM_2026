@@ -878,13 +878,13 @@
     \item In the demodulation window of FFT,
     \\{\scriptsize
     \[x(t)=\begin{cases}
-    X_{1,\text{prev}}e^{j2\pi f_{1}(t+0.1)}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(t+0.1)},&-0.1\le t<0\\
+    X_{1,\text{prev}}e^{j2\pi f_{1}(t+0.5)}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(t+0.5)},&-0.1\le t<0\\
     X_{1,\text{curr}}e^{j2\pi f_{1}t}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}t},&0\le t<0.4
     \end{cases}\]}
     \item Number of sampling points=N, $T_s=\frac{0.5}{N}s$, $f_{1}=2$Hz, $f_{2}=4$Hz
     \\{\scriptsize
     \[x[n]=\begin{cases}
-    X_{1,\text{prev}}e^{j2\pi f_{1}(nT_{s}+0.1)}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(nT_{s}+0.1)},&-0.2N\le n<0\\
+    X_{1,\text{prev}}e^{j2\pi f_{1}(nT_{s}+0.5)}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(nT_{s}+0.5)},&-0.2N\le n<0\\
     X_{1,\text{curr}}e^{j2\pi f_{1}nT_{s}}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}nT_{s}},&0\le n<0.8N
     \end{cases}\]}
   \end{itemize}
@@ -897,7 +897,7 @@
   \item In the frequency domain, 
   \begin{flalign*}
     &Y[k]&
-    \\=&\frac{1}{N}\sum_{n=-0.2N}^{-1}\sum_{m=1}^{2}(X_{m,\text{prev}}e^{j2\pi f_{m}0.1 e^{j2\pi \frac{m}{N}n}})e^{-j2\pi \frac{k}{N}n}&
+    \\=&\frac{1}{N}\sum_{n=-0.2N}^{-1}\sum_{m=1}^{2}(X_{m,\text{prev}}e^{j2\pi f_{m}0.5 e^{j2\pi \frac{m}{N}n}})e^{-j2\pi \frac{k}{N}n}&
     \\+&\frac{1}{N}\sum_{n=0}^{0.8N-1}\sum_{m=1}^{2}(X_{m,\text{curr}}e^{j2\pi \frac{m}{N}n})e^{-j2\pi \frac{k}{N}n}&
     \\=&\sum_{m=1}^{2}X_{m,\text{prev}}\cdot \alpha_{m\rightarrow k}+\sum_{m=1}^{2}X_{m,\text{curr}}\cdot \beta_{m\rightarrow k}&
   \end{flalign*}
@@ -909,7 +909,7 @@
 \begin{itemize}
   \item When $m=k$,
   \begin{flalign*}
-    &\alpha_{k\rightarrow k} =\frac{e^{j0.2\pi f_{k}}}{N}(0.2N)=0.2\cdot e^{j0.2\pi f_{k}} \not= 0\ \ \text{(ISI)} &\\
+    &\alpha_{k\rightarrow k} =\frac{e^{j\pi f_{k}}}{N}(0.2N)=0.2\cdot e^{j\pi f_{k}} \not= 0\ \ \text{(ISI)} &\\
     &\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{0.8N-1}1=\frac{0.8N}{N} =0.8&
   \end{flalign*}
 \end{itemize}
@@ -920,7 +920,7 @@
 \begin{itemize}
   \item When $m\not= k$, 
   \begin{flalign*}
-    &\alpha_{m\rightarrow k}=\frac{e^{j0.2\pi f_{m}}}{N}\frac{e^{\pm j2\pi (-0.2)-1}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ISI, ICI)}&\\
+    &\alpha_{m\rightarrow k}=\frac{e^{j\pi f_{m}}}{N}\frac{e^{\pm j2\pi (-0.2)-1}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ISI, ICI)}&\\
     &\beta_{m\rightarrow k}=\frac{1}{N}\frac{1-e^{\pm j2\pi (0.8)}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ICI)}&
   \end{flalign*}
 \end{itemize}
