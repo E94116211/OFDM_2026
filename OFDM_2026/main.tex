@@ -931,8 +931,8 @@
 \begin{itemize}
     \item Current subcarrier signals:\\
     \[\begin{cases}
-    Y[1]=0.8X_{1,\text{curr}}+\beta_{2\rightarrow 1}X_{2,\text{curr}}+\alpha_{2\rightarrow 1}X_{2,\text{prev}}\\
-    Y[2]=0.8X_{2,\text{curr}}+\beta_{1\rightarrow 2}X_{1,\text{curr}}+\alpha_{1\rightarrow 2}X_{1,\text{prev}}
+    Y[1]=0.8X_{1,\text{curr}}+\beta_{2\rightarrow 1}X_{2,\text{curr}}+\alpha_{1\rightarrow 1}X_{1,\text{prev}}+\alpha_{2\rightarrow 1}X_{2,\text{prev}}\\
+    Y[2]=0.8X_{2,\text{curr}}+\beta_{1\rightarrow 2}X_{1,\text{curr}}+\alpha_{2\rightarrow 2}X_{2,\text{prev}}+\alpha_{1\rightarrow 2}X_{1,\text{prev}}
     \end{cases}\]
     \item The subcarrier experiences energy loss and generates ICI.
     \item Also, the previous subcarrier signals will generate ISI and ICI to the current subcarrier signals.
