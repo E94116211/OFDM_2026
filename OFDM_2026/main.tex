@@ -766,14 +766,15 @@
     \item In the demodulation window of FFT,
     \\{\scriptsize
     \[x(t)=\begin{cases}
-    X_{1}^{prev}e^{j2\pi f_{1}t}\ +\ X_{2}^{prev}e^{j2\pi f_{2}t},&0.4\le t<0.5\\
-    X_{1}^{curr}e^{j2\pi f_{1}(t-0.5)}\ +\ X_{2}^{curr}e^{j2\pi f_{2}(t-0.5)},&0.5\le t<0.9
+    X_{1,\text{prev}}e^{j2\pi f_{1}t}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}t},&0.4\le t<0.5\\
+    X_{1,\text{curr}}e^{j2\pi f_{1}(t-0.5)}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}(t-0.5)},&0.5\le t<0.9
     \end{cases}\]}
+    \item $X_{m,\text{prev}}$ means the previous symbol of the $m$-th subcarrier, and $X_{m,\text{curr}}$ means the current symbol of the $m$-th subcarrier.
     \item Number of sampling points=N, $T_s=\frac{0.5}{N}s$, $t_s=0.4+nT_s$, $f_{1}=2$Hz, $f_{2}=4$Hz
     \\{\scriptsize
     \[x[n]=\begin{cases}
-    X_{1}^{prev}e^{j2\pi f_{1}(0.4+nT_{s})}\ +\ X_{2}^{prev}e^{j2\pi f_{2}(0.4+nT_{s})},&0\le n<0.2N\\
-    X_{1}^{curr}e^{j2\pi f_{1}(-0.1+nT_{s})}\ +\ X_{2}^{curr}e^{j2\pi f_{2}(-0.1+nT_{s})},&0.2N\le n<N
+    X_{1,\text{prev}}e^{j2\pi f_{1}(0.4+nT_{s})}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(0.4+nT_{s})},&0\le n<0.2N\\
+    X_{1,\text{curr}}e^{j2\pi f_{1}(-0.1+nT_{s})}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}(-0.1+nT_{s})},&0.2N\le n<N
     \end{cases}\]}
   \end{itemize}
 \end{itemize}
@@ -792,8 +793,8 @@
   \sum_{n=0}^{0.2N-1}
   \sum_{m=1}^{2}
   \left(
-  X_m^{prev}
-  e^{j2\pi f_m0.4}
+  X_{m,\text{prev}}
+  e^{j2\pi f_m \cdot 0.4}
   e^{j2\pi\frac{m}{N}n}
   \right)
   e^{-j2\pi\frac{k}{N}n}
@@ -803,18 +804,18 @@
   \sum_{n=0.2N}^{N-1}
   \sum_{m=1}^{2}
   \left(
-  X_m^{curr}
-  e^{-j2\pi f_m0.1}
+  X_{m,\text{curr}}
+  e^{-j2\pi f_m \cdot 0.1}
   e^{j2\pi\frac{m}{N}n}
   \right)
   e^{-j2\pi\frac{k}{N}n}
   \\[4pt]
   ={}&
   \sum_{m=1}^{2}
-  X_m^{prev}\alpha_{m\rightarrow k}
+  X_{m,\text{prev}}\alpha_{m\rightarrow k}
   +
   \sum_{m=1}^{2}
-  X_m^{curr}\beta_{m\rightarrow k}.
+  X_{m,\text{curr}}\beta_{m\rightarrow k}.
   \end{aligned}
   \]
   }
@@ -877,14 +878,14 @@
     \item In the demodulation window of FFT,
     \\{\scriptsize
     \[x(t)=\begin{cases}
-    X_{1}^{prev}e^{j2\pi f_{1}(t+0.1)}\ +\ X_{2}^{prev}e^{j2\pi f_{2}(t+0.1)},&-0.1\le t<0\\
-    X_{1}^{curr}e^{j2\pi f_{1}t}\ +\ X_{2}^{curr}e^{j2\pi f_{2}t},&0\le t<0.4
+    X_{1,\text{prev}}e^{j2\pi f_{1}(t+0.1)}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(t+0.1)},&-0.1\le t<0\\
+    X_{1,\text{curr}}e^{j2\pi f_{1}t}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}t},&0\le t<0.4
     \end{cases}\]}
     \item Number of sampling points=N, $T_s=\frac{0.5}{N}s$, $f_{1}=2$Hz, $f_{2}=4$Hz
     \\{\scriptsize
     \[x[n]=\begin{cases}
-    X_{1}^{prev}e^{j2\pi f_{1}(nT_{s}+0.1)}\ +\ X_{2}^{prev}e^{j2\pi f_{2}(nT_{s}+0.1)},&-0.2N\le n<0\\
-    X_{1}^{curr}e^{j2\pi f_{1}nT_{s}}\ +\ X_{2}^{curr}e^{j2\pi f_{2}nT_{s}},&0\le n<0.8N
+    X_{1,\text{prev}}e^{j2\pi f_{1}(nT_{s}+0.1)}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(nT_{s}+0.1)},&-0.2N\le n<0\\
+    X_{1,\text{curr}}e^{j2\pi f_{1}nT_{s}}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}nT_{s}},&0\le n<0.8N
     \end{cases}\]}
   \end{itemize}
 \end{itemize}
@@ -896,9 +897,9 @@
   \item In the frequency domain, 
   \begin{flalign*}
     &Y[k]&
-    \\=&\frac{1}{N}\sum_{n=-0.2N}^{-1}\sum_{m=1}^{2}(X_{m}^{prev}e^{j2\pi f_{m}0.1 e^{j2\pi \frac{m}{N}n}})e^{-j2\pi \frac{k}{N}n}&
-    \\+&\frac{1}{N}\sum_{n=0}^{0.8N-1}\sum_{m=1}^{2}(X_{m}^{curr}e^{j2\pi \frac{m}{N}n})e^{-j2\pi \frac{k}{N}n}&
-    \\=&\sum_{m=1}^{2}X_{m}^{prev}\cdot \alpha_{m\rightarrow k}+\sum_{m=1}^{2}X_{m}^{curr}\cdot \beta_{m\rightarrow k}&
+    \\=&\frac{1}{N}\sum_{n=-0.2N}^{-1}\sum_{m=1}^{2}(X_{m,\text{prev}}e^{j2\pi f_{m}0.1 e^{j2\pi \frac{m}{N}n}})e^{-j2\pi \frac{k}{N}n}&
+    \\+&\frac{1}{N}\sum_{n=0}^{0.8N-1}\sum_{m=1}^{2}(X_{m,\text{curr}}e^{j2\pi \frac{m}{N}n})e^{-j2\pi \frac{k}{N}n}&
+    \\=&\sum_{m=1}^{2}X_{m,\text{prev}}\cdot \alpha_{m\rightarrow k}+\sum_{m=1}^{2}X_{m,\text{curr}}\cdot \beta_{m\rightarrow k}&
   \end{flalign*}
 \end{itemize}
 \end{frame}
@@ -930,8 +931,8 @@
 \begin{itemize}
     \item Current subcarrier signals:\\
     \[\begin{cases}
-    Y[1]=0.8X_{1}^{curr}+\beta_{2\rightarrow 1}X_{2}^{curr}+\alpha_{2\rightarrow 1}X_{2}^{prev}\\
-    Y[2]=0.8X_{2}^{curr}+\beta_{1\rightarrow 2}X_{1}^{curr}+\alpha_{1\rightarrow 2}X_{1}^{prev}
+    Y[1]=0.8X_{1,\text{curr}}+\beta_{2\rightarrow 1}X_{2,\text{curr}}+\alpha_{2\rightarrow 1}X_{2,\text{prev}}\\
+    Y[2]=0.8X_{2,\text{curr}}+\beta_{1\rightarrow 2}X_{1,\text{curr}}+\alpha_{1\rightarrow 2}X_{1,\text{prev}}
     \end{cases}\]
     \item The subcarrier experiences energy loss and generates ICI.
     \item Also, the previous subcarrier signals will generate ISI and ICI to the current subcarrier signals.
