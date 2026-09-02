@@ -626,7 +626,7 @@
         \begin{align*}
            &\int_{a}^{b} \psi_{p}(t) \psi_{q}^\ast(t)dt\\
            =&\int_a^b e^{j2\pi(f_0 + \frac{p}{N\Delta t})t} \cdot e^{-j2\pi(f_0 + \frac{q}{N\Delta t})t}dt\\
-           =&\int_a^b e^{j2\pi(\frac{p - q}{N\Delta t})t} \\
+           =&\int_a^b e^{j2\pi(\frac{p - q}{N\Delta t})t}dt \\
            =& \frac{e^{j2\pi(p-q) \frac{b}{N\Delta t}}-e^{j2\pi(p-q) \frac{a}{N\Delta t}}}{\frac{j2\pi(p-q)}{N\Delta t} }\\
         \end{align*}
     \end{itemize}
@@ -639,7 +639,7 @@
         \begin{align*}
            =& \frac{1}{j2\pi \left( \frac{p-q}{N\Delta t} \right)} \left( e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a} \cdot (e^{j2\pi(p-q) \frac{1}{N\Delta t}(b-a)}-1) \right)\\
            &\text{b-a is an observation period}=N\Delta t\\
-           &\text{ and }  p-q \text{ is an integer so } e^{-j2\pi (p-q)}=1\\
+           &\text{ and }  p-q \text{ is an integer so } e^{j2\pi (p-q)}=1\\
            =& \frac{1}{j2\pi \left( \frac{p-q}{N\Delta t} \right)} \left( e^{j2\pi \left( \frac{p-q}{N\Delta t} \right) a} \cdot (1-1) \right)\\
            =&0
         \end{align*}
@@ -676,6 +676,44 @@
 \begin{frame}
     \frametitle{Orthogonality (13/17)}
     \begin{itemize}
+        \item The orthogonality condition is
+        \begin{align*}
+            \int_{a}^{b} \psi_{p}(t) \psi_{q}^\ast(t)dt=
+            \left \{
+            \begin{array}{lr}(b-a)\,\text{ for }\, p=q\\
+            0\,\text{ for }\,p\neq q \,\text{ and }\,(b-a)=N\Delta t
+            \end{array}
+            \right.
+        \end{align*}
+        \item Consider the received OFDM signal and correlate it with $\psi_{k}(t)$:
+        \begin{align*}
+            &\int_{a}^{b}  D(t) \psi_{k}^\ast(t)dt
+            =\int_{a}^{b} {\Big\{\sum_{n=0}^{N-1} d(n) \psi_{n}(t)\Big\}} \psi_{k}^\ast(t)dt\\
+            =&d(k) \int_{a}^{b} \psi_{k}(t) \psi_{k}^\ast(t)dt + \sum_{n=0,n\neq k}^{N-1} d(n) \Big\{ \int_{a}^{b} \psi_{n}(t) \psi_{k}^\ast(t) dt\Big\}\\
+            =&d(k) N \Delta t + 0 = d(k) N \Delta t
+        \end{align*}
+        \item Therefore, the $k$-th symbol can be recovered independently.
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (14/17)}
+    \begin{itemize}
+        \item Consider one OFDM symbol over the interval \([a,b]\).The Fourier transform is given by:
+        \begin{align*}
+            \mathcal{X}(f) = \mathcal{F}\{D(t)\} = \int_{-\infty }^{\infty} D(t)e^{-j2\pi ft}dt = \int_{a }^{b} D(t)e^{-j2\pi ft}dt
+        \end{align*}
+        \item The $k$-th symbol can be recovered by sampling the spectrum at the $k$-th subcarrier frequency: 
+        \begin{align*}
+            &d(k) N \Delta t = \int_{a}^{b}  D(t) \psi_{k}^\ast(t)dt \\
+            &=\int_{a}^{b}  D(t) e^{-j2\pi (f_0+k\Delta f)t}dt =\mathcal{X}(f_0+k\Delta f)
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Orthogonality (15/17)}
+    \begin{itemize}
         \item Transmitted Signal
     \end{itemize}
     \begin{figure}
@@ -683,28 +721,6 @@
         %\hspace{-1cm}
         \includegraphics[width=0.8\textwidth, trim=0.5cm 0.5cm 0.5cm 0.5cm, clip]{transmitted_signal_v5.eps}
     \end{figure}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Orthogonality (14/17)}
-    \begin{itemize}
-        \item Transmitted Signal in time domain
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.99\textwidth]{OFDM_TD.eps}
-    \end{figure}  
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Orthogonality (15/17)}
-    \begin{itemize}
-        \item Transmitted Signal in frequency domain
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.97\textwidth]{OFDM_FD.eps}
-    \end{figure} 
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
@@ -1663,6 +1679,39 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
       \end{itemize}
       \item If iCFO exists, carriers are still orthogonal, but BER increases.
       \item If fCFO exists, carriers are not orthogonal, and ICI occurs.
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix}
+    \begin{itemize}
+        \item Consider the real received signal and correlate it with $\psi_{k}(t)$:
+        \begin{align*}
+            &\int_{a}^{b}  D(t) \psi_{k}^\ast(t)dt \\
+            &=\int_{a}^{b} {\Big\{\sum_{n=0}^{N-1}\ a(n)\cos{(2\pi f_{n}t)}+b(n)\sin{(2\pi f_{n}t)}\Big\}} \psi_{k}^\ast(t)dt
+        \end{align*}
+        \item Sinusoidal carriers with different frequencies are orthogonal to each other.Then
+        \begin{align*}    
+            =& \int_{a}^{b} [a(k)\cos{(2\pi f_{k}t)}+b(k)\sin{(2\pi f_{k}t)}] \psi_{k}^\ast(t)dt \\
+            =&a(k)\int_{a}^{b} \cos{(2\pi f_{k}t)}e^{-j2 \pi f_k t} dt + b(k)\int_{a}^{b} \sin{(2\pi f_{k}t)}e^{-j2 \pi f_k t}dt \\
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix}
+    \begin{itemize}
+        \item Continued from previous page:
+        \begin{align*}    
+            =&a(k)\int_{a}^{b} \cos{(2\pi f_{k}t)}[\cos{(2\pi f_{k}t)} - j\sin{(2\pi f_{k}t)}]dt +\\
+            & b(k)\int_{a}^{b} \sin{(2\pi f_{k}t)}[\cos{(2\pi f_{k}t)} - j\sin{(2\pi f_{k}t)}]dt 
+        \end{align*}
+        \item Sine and cosine carriers at the same frequency are also orthogonal.Then
+        \begin{align*}
+            =&a(k)\int_{a}^{b} \cos{(2\pi f_{k}t)}^2dt -j b(k)\int_{a}^{b} \sin{(2\pi f_{k}t)}^2dt \\
+            &=\frac{a(k)}{2} -j \frac{b(k)}{2}
+        \end{align*}
+        \item In practice, we take the real part of the correlation with the cosine carrier and the imaginary part with the sine carrier.
     \end{itemize}
 \end{frame}
 \end{document}  
