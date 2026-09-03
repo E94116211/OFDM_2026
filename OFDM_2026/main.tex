@@ -336,7 +336,8 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{fading.eps}
+        \includegraphics[width=0.75\textwidth]{e04su3su;6.jpg}
+        %\includegraphics[width=0.75\textwidth]{fading.eps}
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
@@ -352,7 +353,7 @@
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (1/6)}
+    \frametitle{Multipath propagation (1/8)}
     \begin{itemize}
         \item Multipath is the propagation phenomenon that results in radio signals reaching the receiving antenna by two or more paths.
     \end{itemize}
@@ -363,7 +364,7 @@
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (2/6)}
+    \frametitle{Multipath propagation (2/8)}
     \begin{itemize}
         \item Multipath propagation results in a received signal that is dispersed in time.
     \end{itemize}
@@ -375,7 +376,7 @@
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (3/6) --- Proof}
+    \frametitle{Multipath propagation (3/8) --- Proof}
     \begin{itemize}
         \item Two-path channel impulse response:
         \begin{align*}
@@ -398,7 +399,67 @@
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (4/6) --- Proof}
+    \frametitle{Multipath propagation (4/8) --- Proof}
+
+    \begin{itemize}
+        \item N-path channel impulse response:
+        \begin{align*}
+            h(t)
+            &= \sum_{n=0}^{N-1}
+            a_n \delta(t-\tau_n) \\
+            &\text{where } a_n \text{ is the amplitude of the }n\text{-th path,}\\
+            &\tau_n \text{ is the delay of the }n\text{-th path.}
+        \end{align*}
+    \end{itemize}
+
+    \begin{itemize}
+        \item Frequency response:
+        \begin{align*}
+            H(f)
+            &= \sum_{n=0}^{N-1}
+            a_n e^{-j2\pi f\tau_n} \\[2mm]
+            |H(f)|^2
+            &= H(f)H(f)^* \\
+            &=
+            \left(
+            \sum_{n=0}^{N-1}
+            a_n e^{-j2\pi f\tau_n}
+            \right)
+            \left(
+            \sum_{m=0}^{N-1}
+            a_m e^{j2\pi f\tau_m}
+            \right).
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation (5/8) --- Proof}
+
+    \begin{itemize}
+        \item Continued from previous page:
+        \begin{align*}
+            &=
+            \sum_{n=0}^{N-1}
+            \sum_{m=0}^{N-1}
+            a_n a_m
+            e^{-j2\pi f(\tau_n-\tau_m)} \\
+            &=
+            \sum_{n=0}^{N-1} a_n^2
+            +
+            2\sum_{n=0}^{N-2}
+            \sum_{m=n+1}^{N-1}
+            a_n a_m
+            \cos\left(
+            2\pi f(\tau_n-\tau_m)
+            \right).
+        \end{align*}
+    \end{itemize}
+\end{frame}
+
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation (6/8) --- Proof}
     \begin{itemize}
         \item $a = b$.
         \begin{align*}
@@ -420,7 +481,7 @@
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (5/6)}
+    \frametitle{Multipath propagation (7/8)}
     \begin{itemize}
         \item Two paths, each with a different amplitude.
     \end{itemize}
@@ -431,7 +492,7 @@
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (6/6)}
+    \frametitle{Multipath propagation (8/8)}
     \begin{itemize}
         \item Two paths, each with an amplitude equal to 1.
     \end{itemize}
