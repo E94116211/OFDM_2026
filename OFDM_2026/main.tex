@@ -244,7 +244,7 @@
     \frametitle{OFDM Transmitter}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth]{transmitter.eps}
+        \includegraphics[width=0.7\textwidth]{transmitter.eps}
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
@@ -255,7 +255,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.65\textwidth]{MC_System.eps}
+        \includegraphics[width=0.5\textwidth]{MC_System.eps}
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
@@ -824,6 +824,95 @@
             \item ADC/DAC Clock Mismatch
             \item Local Oscillator Short-term Instability
         \end{itemize}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (1/5)}
+    \begin{itemize}
+      \item Frequency offset equation:
+        \begin{equation*}
+            f_{\text{offset}} = f_c' - f_c
+        \end{equation*}
+        where:
+        \begin{itemize}
+            \item $f_c'$: subcarrier's frequency of receiver
+            \item $f_c$: subcarrier's frequency of transmitter
+        \end{itemize}
+      \item CFO:
+      \begin{equation*}
+        \epsilon = \frac{f_{\text{offset}}}{\Delta f},\ \Delta f = \frac{1}{N \Delta t}
+      \end{equation*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (2/5)}
+    \begin{itemize}
+        \item $\psi_k(t) = e^{j 2\pi (f_0 + k\Delta f) t} \leftrightarrow \delta(f - f_0 - k\Delta f)$
+        
+        \item $\text{Tx: } X_k \delta(f - f_k), \quad f_k = f_0 + k\Delta f$
+        
+        \item $\text{Rx: }$
+        \begin{align*}
+            X_k \delta(f - f_k')
+            &= X_k \delta(f - f_k - f_{\text{offset}}) \\
+            &= X_k \delta(f - f_0 - k\Delta f - \epsilon \Delta f)
+        \end{align*}
+        
+        \item $\text{Number of sampling points} = N, \quad T_s = \frac{1}{N\Delta f}, \quad f_k' = f_0 + k\Delta f + f_{\text{offset}}$
+        
+        \item Carrier signal:
+        \begin{align*}
+            e^{j 2\pi f t} &= e^{j 2\pi (f_0 + k\Delta f + f_{\text{offset}}) \cdot (n \cdot T_s)} \\
+            &= e^{j 2\pi (f_0 + k\Delta f + \epsilon \Delta f) \cdot \left(n \cdot \frac{1}{N\Delta f}\right)} \\
+            &= e^{j 2\pi n (k + \epsilon) / N} \cdot e^{j 2\pi \left(\frac{f_0}{\Delta f}\right) n / N}
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (3/5)}
+    \begin{itemize}
+        \item $f_0$ is demodulated to DC by LO (Local Oscillator) and low-pass filter.
+        \item The offset in the time domain and in the frequency domain:
+          \begin{equation*}
+            \delta(f - \epsilon)\ \longrightarrow \ \exp(j 2\pi n \epsilon / N)
+          \end{equation*}
+        \item Inverse discrete Fourier transform:
+        \begin{equation*}
+            \text{IDFT}\{X[k]\} = \sum_{k=0}^{N-1} X_l[k] e^{j 2\pi n (k + \epsilon) / N}
+        \end{equation*}
+        \item Assume no other phase noise, the received signal can be expressed as:\\
+      \begin{equation*}
+        y_{l}[n] = \underbrace{\frac{1}{N} \sum_{k=0}^{N-1} H[k]X_{l}[k] e^{j 2\pi n (k+\epsilon)/N}}_{\text{IDFT signal + CFO, l means the l-th symbol}} + \underbrace{z_{l}[n]}_{\text{AWGN}}
+      \end{equation*}
+    \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (4/5)}
+    \begin{figure}
+      \centering
+      \includegraphics[width=1\textwidth]{CFO_1.png}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (5/5)}
+    \begin{itemize}
+      \item CFO can be decomposed into integer and fractional parts:
+      \begin{equation*}
+        \epsilon=\epsilon_{i}+\epsilon_{f}
+      \end{equation*}
+      \begin{itemize}
+        \item $\epsilon_{i}$ is the integer multiple of $\Delta f$ (iCFO/IFO).
+        \item $\epsilon_{f}$ is the fractional multiple of $\Delta f$ (fCFO/FFO).
+      \end{itemize}
+      \item If iCFO exists, carriers are still orthogonal, but BER increases.
+      \item If fCFO exists, carriers are not orthogonal, and ICI occurs.
     \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1688,63 +1777,6 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
                 \]      
         \end{itemize}
     \end{frame} 
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (1/4)}
-    \begin{itemize}
-      \item Frequency offset equation:
-        \begin{equation*}
-            f_{\text{offset}} = f_c - f_c'
-        \end{equation*}
-        where:
-        \begin{itemize}
-            \item $f_c$: subcarrier's frequency of transmitter
-            \item $f_c'$: subcarrier's frequency of receiver
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (2/4)}
-    \begin{itemize}
-      \item CFO:
-      \begin{equation*}
-        \epsilon = \frac{f_{\text{offset}}}{\Delta f},\ \Delta f = \frac{1}{N \Delta t}
-      \end{equation*}
-      \item The offset in the time domain and in the frequency domain:
-      \begin{equation*}
-        \delta(f - \epsilon)\ \longrightarrow \ \exp(j 2\pi n \epsilon)
-      \end{equation*}
-      \item Assume no other phase noise, the received signal can be expressed as:\\
-      \begin{equation*}
-        Y_{l}[n] = \underbrace{\frac{1}{N} \sum_{k=0}^{N-1} H[k]X_{l}[k] e^{j 2\pi n (k+\epsilon)/N}}_{\text{IDFT signal + CFO, l means the l-th subcarrier}} + \underbrace{z_{l}[n]}_{\text{AWGN}}
-      \end{equation*}
-    \end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (3/4)}
-    \begin{figure}
-      \centering
-      \includegraphics[width=1\textwidth]{CFO_1.png}
-    \end{figure}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Appendix: Carrier Frequency Offset (CFO) Results in Inter-Carrier Interference (ICI) (4/4)}
-    \begin{itemize}
-      \item CFO can be decomposed into integer and fractional parts:
-      \begin{equation*}
-        \epsilon=\epsilon_{i}+\epsilon_{f}
-      \end{equation*}
-      \begin{itemize}
-        \item $\epsilon_{i}$ is the integer multiple of $\Delta f$ (iCFO/IFO).
-        \item $\epsilon_{f}$ is the fractional multiple of $\Delta f$ (fCFO/FFO).
-      \end{itemize}
-      \item If iCFO exists, carriers are still orthogonal, but BER increases.
-      \item If fCFO exists, carriers are not orthogonal, and ICI occurs.
-    \end{itemize}
-\end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
     \frametitle{Appendix}
