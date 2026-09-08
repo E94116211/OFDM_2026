@@ -487,7 +487,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{delayspread1.eps}
+        \includegraphics[width=0.85\textwidth]{delayspread1.eps}
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
@@ -498,7 +498,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=1\textwidth]{delayspread2.eps}
+        \includegraphics[width=0.85\textwidth]{delayspread2.eps}
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
@@ -1318,7 +1318,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{GI_cause_ISI_modify.png}
+        \includegraphics[width=0.5\textwidth]{GI_cause_ISI_modify.png}
     \end{figure}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1806,5 +1806,24 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
         \end{align*}
         \item In practice, we take the real part of the correlation with the cosine carrier and the imaginary part with the sine carrier.
     \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+     \frametitle{Appendix}
+
+    \begin{itemize}
+  \item the graph with different sampling point
+    \end{itemize}
+
+    \begin{figure}
+        \centering
+        \setlength{\tabcolsep}{5pt} % 控制兩張圖之間的距離，讓它們靠近一點
+        \begin{tabular}{cc}
+            % 縮小寬度比例至 0.42，讓兩張圖在畫面上更集中、更靠近
+            \includegraphics[width=0.45\textwidth]{original.eps} &
+            \includegraphics[width=0.45\textwidth]{copy.eps} 
+        \end{tabular}
+    \end{figure}
+
 \end{frame}
 \end{document}  
