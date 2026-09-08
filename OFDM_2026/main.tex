@@ -920,11 +920,8 @@
     \frametitle{Timing Synchronization Error Results in Inter-Symbol Interference (ISI) (1/4)}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{Timing_Synchronization_Error_ISI.eps}
+        \includegraphics[width=0.8\textwidth]{time_synchronization_ISI.eps}
     \end{figure}
-    \begin{itemize}
-        \item 改圖.
-    \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
@@ -1027,7 +1024,7 @@
     \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (1/8)}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{Timing_Synchronization_Error_ICI.eps}
+        \includegraphics[width=0.8\textwidth]{time_synchronization_error_ICI.eps}
     \end{figure}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1064,12 +1061,12 @@
 \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (4/8)}
 \begin{itemize}
   \item In the frequency domain, 
-  \begin{flalign*}
+  \begin{align*}
     &Y[k]&
     \\=&\frac{1}{N}\sum_{n=-0.2N}^{-1}\sum_{m=1}^{2}(X_{m,\text{prev}}e^{j2\pi f_{m}(-0.5) e^{j2\pi \frac{m}{N}n}})e^{-j2\pi \frac{k}{N}n}&
     \\+&\frac{1}{N}\sum_{n=0}^{0.8N-1}\sum_{m=1}^{2}(X_{m,\text{curr}}e^{j2\pi \frac{m}{N}n})e^{-j2\pi \frac{k}{N}n}&
     \\=&\sum_{m=1}^{2}X_{m,\text{prev}}\cdot \alpha_{m\rightarrow k}+\sum_{m=1}^{2}X_{m,\text{curr}}\cdot \beta_{m\rightarrow k}&
-  \end{flalign*}
+  \end{align*}
 \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1077,10 +1074,10 @@
 \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (5/8)}
 \begin{itemize}
   \item When $m=k$,
-  \begin{flalign*}
+  \begin{align*}
     &\alpha_{k\rightarrow k} =\frac{e^{j\pi f_{k}}}{N}(0.2N)=0.2\cdot e^{j\pi f_{k}} \not= 0\ \ \text{(ISI)} &\\
     &\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{0.8N-1}1=\frac{0.8N}{N} =0.8&
-  \end{flalign*}
+  \end{align*}
 \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1088,10 +1085,10 @@
 \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (6/8)}
 \begin{itemize}
   \item When $m\not= k$, 
-  \begin{flalign*}
+  \begin{align*}
     &\alpha_{m\rightarrow k}=\frac{e^{j\pi f_{m}}}{N}\frac{e^{\pm j2\pi (-0.2)-1}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ISI, ICI)}&\\
     &\beta_{m\rightarrow k}=\frac{1}{N}\frac{1-e^{\pm j2\pi (0.8)}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ICI)}&
-  \end{flalign*}
+  \end{align*}
 \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
