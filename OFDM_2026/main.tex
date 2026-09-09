@@ -375,6 +375,7 @@
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
+
 \begin{frame}
     \frametitle{Multipath propagation (3/8) --- Proof}
     \begin{itemize}
@@ -420,41 +421,182 @@
             a_n e^{-j2\pi f\tau_n} \\[2mm]
             |H(f)|^2
             &= H(f)H(f)^* \\
-            &=
-            \left(
-            \sum_{n=0}^{N-1}
-            a_n e^{-j2\pi f\tau_n}
-            \right)
-            \left(
-            \sum_{m=0}^{N-1}
-            a_m e^{j2\pi f\tau_m}
-            \right).
         \end{align*}
     \end{itemize}
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (5/8) --- Proof}
+    \frametitle{Multipath propagation (45/8) --- Proof}
+    \small
+    \begin{align*}
+        &=
+        \left(
+        \sum_{n=0}^{N-1}
+        a_n e^{-j2\pi f\tau_n}
+        \right)
+        \left[
+        \sum_{m=0}^{N-1}
+        a_m e^{-j2\pi f\tau_m}
+        \right]^*
+        \\[2mm]
+        &=
+        \left(
+        \sum_{n=0}^{N-1}
+        a_n e^{-j2\pi f\tau_n}
+        \right)
+        \left(
+        \sum_{m=0}^{N-1}
+        a_m e^{j2\pi f\tau_m}
+        \right),
+        \qquad a_m\in\mathbb{R}
+        \\[2mm]
+        &=
+        \sum_{n=0}^{N-1}
+        \sum_{m=0}^{N-1}
+        a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}.
+    \end{align*}
 
     \begin{itemize}
-        \item Continued from previous page:
-        \begin{align*}
-            &=
-            \sum_{n=0}^{N-1}
-            \sum_{m=0}^{N-1}
-            a_n a_m
-            e^{-j2\pi f(\tau_n-\tau_m)} \\
-            &=
-            \sum_{n=0}^{N-1} a_n^2
-            +
-            2\sum_{n=0}^{N-2}
-            \sum_{m=n+1}^{N-1}
-            a_n a_m
-            \cos\left(
-            2\pi f(\tau_n-\tau_m)
-            \right).
-        \end{align*}
+        \item Case 1: $n=m$
     \end{itemize}
+
+    \begin{align*}
+        &a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        \bigg|_{m=n}
+        \\[1mm]
+        &=
+        a_n^2
+        e^{-j2\pi f(\tau_n-\tau_n)}
+        \\[1mm]
+        &=
+        a_n^2.
+    \end{align*}
+
+    Therefore,
+
+    \[
+        \boxed{
+        \sum_{n=0}^{N-1} a_n^2
+        }
+    \]
+
+
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation(5/8) --- Proof}
+
+    \begin{itemize}
+        \item Case 2: $n\neq m$
+    \end{itemize}
+
+    \begin{align*}
+        &
+        \sum_{n\neq m}
+        a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        \\[2mm]
+        &=
+        \Big[
+        a_0a_1e^{-j2\pi f(\tau_0-\tau_1)}
+        +
+        a_1a_0e^{-j2\pi f(\tau_1-\tau_0)}
+        \Big]
+        \\[1mm]
+        &\quad+
+        \Big[
+        a_0a_2e^{-j2\pi f(\tau_0-\tau_2)}
+        +
+        a_2a_0e^{-j2\pi f(\tau_2-\tau_0)}
+        \Big]
+        \\[1mm]
+        &\quad+\cdots
+        \\[1mm]
+        &\quad+
+        \Big[
+        a_{N-2}a_{N-1}
+        e^{-j2\pi f(\tau_{N-2}-\tau_{N-1})}
+        \\
+        &\qquad\qquad+
+        a_{N-1}a_{N-2}
+        e^{-j2\pi f(\tau_{N-1}-\tau_{N-2})}
+        \Big].
+    \end{align*}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation(666/8) --- Proof}
+
+    \begin{align*}
+        &
+        a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        +
+        a_m a_n
+        e^{-j2\pi f(\tau_m-\tau_n)}
+        \\[2mm]
+        &=
+        a_n a_m
+        \left[
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        +
+        e^{j2\pi f(\tau_n-\tau_m)}
+        \right]
+        \\[2mm]
+        &=
+        2a_n a_m
+        \cos
+        \left[
+        2\pi f(\tau_n-\tau_m)
+        \right].
+    \end{align*}
+
+    Therefore, for all $n\neq m$,
+
+    \begin{align*}
+        &
+        \sum_{n\neq m}
+        a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        \\[2mm]
+        &=
+        2
+        \sum_{n=0}^{N-2}
+        \sum_{m=n+1}^{N-1}
+        a_n a_m
+        \cos
+        \left[
+        2\pi f(\tau_n-\tau_m)
+        \right].
+    \end{align*}
+
+    \begin{itemize}
+        \item Merge Case 1 and Case 2:
+    \end{itemize}
+
+    \begin{align*}
+        |H(f)|^2
+        &=
+        \sum_{n=0}^{N-1} a_n^2
+        \\
+        &\quad+
+        2
+        \sum_{n=0}^{N-2}
+        \sum_{m=n+1}^{N-1}
+        a_n a_m
+        \cos
+        \left[
+        2\pi f(\tau_n-\tau_m)
+        \right].
+    \end{align*}
+
+
+
 \end{frame}
 
 %----------------------------------------------------------------------------%
