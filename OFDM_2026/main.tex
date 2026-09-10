@@ -1005,7 +1005,7 @@
         
         \item $\text{Number of sampling points} = N, \quad T_s = \frac{1}{N\Delta f}, \quad f_k' = f_0 + k\Delta f + f_{\text{offset}}$
         
-        \item Carrier signal:
+        \item The exponential term of the received carrier signal's IDFT:
         \begin{align*}
             e^{j 2\pi f t} &= e^{j 2\pi (f_0 + k\Delta f + f_{\text{offset}}) \cdot (n \cdot T_s)} \\
             &= e^{j 2\pi (f_0 + k\Delta f + \epsilon \Delta f) \cdot \left(n \cdot \frac{1}{N\Delta f}\right)} \\
@@ -1022,7 +1022,7 @@
           \begin{equation*}
             \delta(f - \epsilon)\ \longrightarrow \ \exp(j 2\pi n \epsilon / N)
           \end{equation*}
-        \item Inverse discrete Fourier transform:
+        \item IDFT of $X[k]$ with CFO:
         \begin{equation*}
             \text{IDFT}\{X[k]\} = \sum_{k=0}^{N-1} X_l[k] e^{j 2\pi n (k + \epsilon) / N}
         \end{equation*}
