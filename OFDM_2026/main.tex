@@ -1061,7 +1061,7 @@
     \frametitle{Timing Synchronization Error Results in Inter-Symbol Interference (ISI) (1/4)}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{time_synchronization_ISI.eps}
+        \includegraphics[width=0.6\textwidth]{time_synchronization_ISI.eps}
     \end{figure}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1185,14 +1185,15 @@
     \item In the demodulation window of FFT,
     \\{\scriptsize
     \[x(t)=\begin{cases}
-    X_{1,\text{prev}}e^{j2\pi f_{1}(t+0.5)}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(t+0.5)},&-0.1\le t<0\\
-    X_{1,\text{curr}}e^{j2\pi f_{1}t}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}t},&0\le t<0.4
+    X_{1,\text{prev}}e^{j2\pi f_{1}t}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}t},&0.4\le t<0.5\\
+    X_{1,\text{curr}}e^{j2\pi f_{1}(t-0.5)}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}(t-0.5)},&0.5\le t<0.9
     \end{cases}\]}
-    \item Number of sampling points=N, $T_s=\frac{0.5}{N}s$, $f_{1}=2$Hz, $f_{2}=4$Hz
+    \item $X_{m,\text{prev}}$ means the previous symbol of the $m$-th subcarrier, and $X_{m,\text{curr}}$ means the current symbol of the $m$-th subcarrier.
+    \item Number of sampling points=N, $T_s=\frac{0.5}{N}s$, $t_s=0.4+nT_s$, $f_{1}=2$Hz, $f_{2}=4$Hz
     \\{\scriptsize
     \[x[n]=\begin{cases}
-    X_{1,\text{prev}}e^{j2\pi f_{1}(nT_{s}+0.5)}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(nT_{s}+0.5)},&-0.2N\le n<0\\
-    X_{1,\text{curr}}e^{j2\pi f_{1}nT_{s}}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}nT_{s}},&0\le n<0.8N
+    X_{1,\text{prev}}e^{j2\pi f_{1}(0.4+nT_{s})}\ +\ X_{2,\text{prev}}e^{j2\pi f_{2}(0.4+nT_{s})},&0\le n<0.2N\\
+    X_{1,\text{curr}}e^{j2\pi f_{1}(-0.1+nT_{s})}\ +\ X_{2,\text{curr}}e^{j2\pi f_{2}(-0.1+nT_{s})},&0.2N\le n<N
     \end{cases}\]}
   \end{itemize}
 \end{itemize}
@@ -1201,13 +1202,42 @@
 \begin{frame}
 \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (4/8)}
 \begin{itemize}
-  \item In the frequency domain, 
-  \begin{align*}
-    &Y[k]&
-    \\=&\frac{1}{N}\sum_{n=-0.2N}^{-1}\sum_{m=1}^{2}(X_{m,\text{prev}}e^{j2\pi f_{m}(-0.5) e^{j2\pi \frac{m}{N}n}})e^{-j2\pi \frac{k}{N}n}&
-    \\+&\frac{1}{N}\sum_{n=0}^{0.8N-1}\sum_{m=1}^{2}(X_{m,\text{curr}}e^{j2\pi \frac{m}{N}n})e^{-j2\pi \frac{k}{N}n}&
-    \\=&\sum_{m=1}^{2}X_{m,\text{prev}}\cdot \alpha_{m\rightarrow k}+\sum_{m=1}^{2}X_{m,\text{curr}}\cdot \beta_{m\rightarrow k}&
-  \end{align*}
+  \item In the frequency domain,
+  {\scriptsize
+  \[
+  \begin{aligned}
+  Y[k]
+  ={}&
+  \frac{1}{N}
+  \sum_{n=0}^{0.2N-1}
+  \sum_{m=1}^{2}
+  \left(
+  X_{m,\text{prev}}
+  e^{j2\pi f_m \cdot 0.4}
+  e^{j2\pi\frac{m}{N}n}
+  \right)
+  e^{-j2\pi\frac{k}{N}n}
+  \\[4pt]
+  &+
+  \frac{1}{N}
+  \sum_{n=0.2N}^{N-1}
+  \sum_{m=1}^{2}
+  \left(
+  X_{m,\text{curr}}
+  e^{-j2\pi f_m \cdot 0.1}
+  e^{j2\pi\frac{m}{N}n}
+  \right)
+  e^{-j2\pi\frac{k}{N}n}
+  \\[4pt]
+  ={}&
+  \sum_{m=1}^{2}
+  X_{m,\text{prev}}\alpha_{m\rightarrow k}
+  +
+  \sum_{m=1}^{2}
+  X_{m,\text{curr}}\beta_{m\rightarrow k}.
+  \end{aligned}
+  \]
+  }
 \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1215,10 +1245,31 @@
 \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (5/8)}
 \begin{itemize}
   \item When $m=k$,
-  \begin{align*}
-    &\alpha_{k\rightarrow k} =\frac{e^{j\pi f_{k}}}{N}(0.2N)=0.2\cdot e^{j\pi f_{k}} \not= 0\ \ \text{(ISI)} &\\
-    &\beta_{k\rightarrow k}=\frac{1}{N}\sum_{n=0}^{0.8N-1}1=\frac{0.8N}{N} =0.8&
-  \end{align*}
+  {\small
+  \[
+  \begin{aligned}
+  \alpha_{k\rightarrow k}
+  &=
+  \frac{e^{j0.8\pi f_k}}{N}(0.2N)
+  \\
+  &=
+  0.2e^{j0.8\pi f_k}
+  \neq 0
+  \qquad \text{(ISI)}
+  \\[8pt]
+  \beta_{k\rightarrow k}
+  &=
+  \frac{e^{-j0.2\pi f_k}}{N}
+  \sum_{n=0.2N}^{N-1}1
+  \\
+  &=
+  \frac{e^{-j0.2\pi f_k}}{N}(0.8N)
+  \\
+  &=
+  0.8e^{-j0.2\pi f_k}
+  \end{aligned}
+  \]
+  }
 \end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1227,8 +1278,8 @@
 \begin{itemize}
   \item When $m\not= k$, 
   \begin{align*}
-    &\alpha_{m\rightarrow k}=\frac{e^{j\pi f_{m}}}{N}\frac{e^{\pm j2\pi (-0.2)-1}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ISI, ICI)}&\\
-    &\beta_{m\rightarrow k}=\frac{1}{N}\frac{1-e^{\pm j2\pi (0.8)}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ICI)}&
+    &\alpha_{m\rightarrow k}=\frac{e^{j\pi f_{m}(0.8)}}{N}\frac{1-e^{\pm j2\pi (0.2)}}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ISI, ICI)}&\\
+    &\beta_{m\rightarrow k}=\frac{e^{-j2\pi f_{m}(0.2)}}{N}\frac{e^{\pm j2\pi (0.4)}\pm 1}{1-e^{\pm j2\pi \frac{1}{N}}}\not= 0\ \ \text{(ICI)}&
   \end{align*}
 \end{itemize}
 \end{frame}
