@@ -335,7 +335,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{e04su3su;6.jpg}
+        \includegraphics[width=0.75\textwidth]{e04su3su;6.png}
         %\includegraphics[width=0.75\textwidth]{fading.eps}
     \end{figure}
 \end{frame}
@@ -369,11 +369,12 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{multipath_2.jpg}
+        \includegraphics[width=0.65\textwidth]{multipath_2.png}
         %original fig: Delay_spread.eps%
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
+
 \begin{frame}
     \frametitle{Multipath propagation (3/8) --- Proof}
     \begin{itemize}
@@ -419,41 +420,182 @@
             a_n e^{-j2\pi f\tau_n} \\[2mm]
             |H(f)|^2
             &= H(f)H(f)^* \\
-            &=
-            \left(
-            \sum_{n=0}^{N-1}
-            a_n e^{-j2\pi f\tau_n}
-            \right)
-            \left(
-            \sum_{m=0}^{N-1}
-            a_m e^{j2\pi f\tau_m}
-            \right).
         \end{align*}
     \end{itemize}
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (5/8) --- Proof}
+    \frametitle{Multipath propagation (45/8) --- Proof}
+    \small
+    \begin{align*}
+        &=
+        \left(
+        \sum_{n=0}^{N-1}
+        a_n e^{-j2\pi f\tau_n}
+        \right)
+        \left[
+        \sum_{m=0}^{N-1}
+        a_m e^{-j2\pi f\tau_m}
+        \right]^*
+        \\[2mm]
+        &=
+        \left(
+        \sum_{n=0}^{N-1}
+        a_n e^{-j2\pi f\tau_n}
+        \right)
+        \left(
+        \sum_{m=0}^{N-1}
+        a_m e^{j2\pi f\tau_m}
+        \right),
+        \qquad a_m\in\mathbb{R}
+        \\[2mm]
+        &=
+        \sum_{n=0}^{N-1}
+        \sum_{m=0}^{N-1}
+        a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}.
+    \end{align*}
 
     \begin{itemize}
-        \item Continued from previous page:
-        \begin{align*}
-            &=
-            \sum_{n=0}^{N-1}
-            \sum_{m=0}^{N-1}
-            a_n a_m
-            e^{-j2\pi f(\tau_n-\tau_m)} \\
-            &=
-            \sum_{n=0}^{N-1} a_n^2
-            +
-            2\sum_{n=0}^{N-2}
-            \sum_{m=n+1}^{N-1}
-            a_n a_m
-            \cos\left(
-            2\pi f(\tau_n-\tau_m)
-            \right).
-        \end{align*}
+        \item Case 1: $n=m$
     \end{itemize}
+
+    \begin{align*}
+        &a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        \bigg|_{m=n}
+        \\[1mm]
+        &=
+        a_n^2
+        e^{-j2\pi f(\tau_n-\tau_n)}
+        \\[1mm]
+        &=
+        a_n^2.
+    \end{align*}
+
+    Therefore,
+
+    \[
+        \boxed{
+        \sum_{n=0}^{N-1} a_n^2
+        }
+    \]
+
+
+\end{frame}
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation(5/8) --- Proof}
+
+    \begin{itemize}
+        \item Case 2: $n\neq m$
+    \end{itemize}
+
+    \begin{align*}
+        &
+        \sum_{n\neq m}
+        a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        \\[2mm]
+        &=
+        \Big[
+        a_0a_1e^{-j2\pi f(\tau_0-\tau_1)}
+        +
+        a_1a_0e^{-j2\pi f(\tau_1-\tau_0)}
+        \Big]
+        \\[1mm]
+        &\quad+
+        \Big[
+        a_0a_2e^{-j2\pi f(\tau_0-\tau_2)}
+        +
+        a_2a_0e^{-j2\pi f(\tau_2-\tau_0)}
+        \Big]
+        \\[1mm]
+        &\quad+\cdots
+        \\[1mm]
+        &\quad+
+        \Big[
+        a_{N-2}a_{N-1}
+        e^{-j2\pi f(\tau_{N-2}-\tau_{N-1})}
+        \\
+        &\qquad\qquad+
+        a_{N-1}a_{N-2}
+        e^{-j2\pi f(\tau_{N-1}-\tau_{N-2})}
+        \Big].
+    \end{align*}
+
+
+\end{frame}
+
+%----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multipath propagation(666/8) --- Proof}
+
+    \begin{align*}
+        &
+        a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        +
+        a_m a_n
+        e^{-j2\pi f(\tau_m-\tau_n)}
+        \\[2mm]
+        &=
+        a_n a_m
+        \left[
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        +
+        e^{j2\pi f(\tau_n-\tau_m)}
+        \right]
+        \\[2mm]
+        &=
+        2a_n a_m
+        \cos
+        \left[
+        2\pi f(\tau_n-\tau_m)
+        \right].
+    \end{align*}
+
+    Therefore, for all $n\neq m$,
+
+    \begin{align*}
+        &
+        \sum_{n\neq m}
+        a_n a_m
+        e^{-j2\pi f(\tau_n-\tau_m)}
+        \\[2mm]
+        &=
+        2
+        \sum_{n=0}^{N-2}
+        \sum_{m=n+1}^{N-1}
+        a_n a_m
+        \cos
+        \left[
+        2\pi f(\tau_n-\tau_m)
+        \right].
+    \end{align*}
+
+    \begin{itemize}
+        \item Merge Case 1 and Case 2:
+    \end{itemize}
+
+    \begin{align*}
+        |H(f)|^2
+        &=
+        \sum_{n=0}^{N-1} a_n^2
+        \\
+        &\quad+
+        2
+        \sum_{n=0}^{N-2}
+        \sum_{m=n+1}^{N-1}
+        a_n a_m
+        \cos
+        \left[
+        2\pi f(\tau_n-\tau_m)
+        \right].
+    \end{align*}
+
+
+
 \end{frame}
 
 %----------------------------------------------------------------------------%
@@ -486,7 +628,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=1\textwidth]{delayspread1.eps}
+        \includegraphics[width=0.85\textwidth]{delayspread1.eps}
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
@@ -497,7 +639,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=1\textwidth]{delayspread2.eps}
+        \includegraphics[width=0.85\textwidth]{delayspread2.eps}
     \end{figure}
 \end{frame}
 %----------------------------------------------------------------------------%
@@ -779,7 +921,7 @@
     \begin{figure}
         \centering
         %\hspace{-1cm}
-        \includegraphics[width=0.8\textwidth, trim=0.5cm 0.5cm 0.5cm 0.5cm, clip]{transmitted_signal_v5.eps}
+        \includegraphics[width=0.5\textwidth, trim=0.5cm 0.5cm 0.5cm 0.5cm, clip]{transmitted_signal_v5.eps}
     \end{figure}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -809,7 +951,7 @@
     \frametitle{Frequency Error Result in Inter-Carrier Interference (ICI) (1/2)}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{frequency_error_ICI.eps}
+        \includegraphics[width=0.7\textwidth]{frequency_error_ICI.eps}
     \end{figure}  
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1317,7 +1459,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{GI_cause_ISI_modify.png}
+        \includegraphics[width=0.5\textwidth]{GI_cause_ISI_modify.png}
     \end{figure}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -1805,5 +1947,24 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
         \end{align*}
         \item In practice, we take the real part of the correlation with the cosine carrier and the imaginary part with the sine carrier.
     \end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+     \frametitle{Appendix}
+
+    \begin{itemize}
+  \item the graph with different sampling point
+    \end{itemize}
+
+    \begin{figure}
+        \centering
+        \setlength{\tabcolsep}{5pt} % 控制兩張圖之間的距離，讓它們靠近一點
+        \begin{tabular}{cc}
+            % 縮小寬度比例至 0.42，讓兩張圖在畫面上更集中、更靠近
+            \includegraphics[width=0.45\textwidth]{original.eps} &
+            \includegraphics[width=0.45\textwidth]{copy.eps} 
+        \end{tabular}
+    \end{figure}
+
 \end{frame}
 \end{document}  
