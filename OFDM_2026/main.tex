@@ -15,7 +15,6 @@
 \usepackage{xeCJK} % 中文支持
 \usepackage{subfig} % 子圖片
 \usepackage{array} % 進階陣列和表格
-\usepackage{stfloats} % 提供更多浮動環境控制
 \usepackage{url} % 插入URL%\usepackage{times} % Times字體
 \usepackage{bm} % 粗體數學符號
 \usepackage{bibentry} % 不生成參考文獻列表
@@ -336,7 +335,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{e04su3su;6.jpg}
+        \includegraphics[width=0.75\textwidth]{e04su3su;6.png}
         %\includegraphics[width=0.75\textwidth]{fading.eps}
     \end{figure}
 \end{frame}
@@ -370,7 +369,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth]{multipath_2.jpg}
+        \includegraphics[width=0.65\textwidth]{multipath_2.png}
         %original fig: Delay_spread.eps%
     \end{figure}
 \end{frame}
@@ -853,7 +852,7 @@ Therefore, for all $n\neq m$,
     \begin{figure}
         \centering
         %\hspace{-1cm}
-        \includegraphics[width=0.8\textwidth, trim=0.5cm 0.5cm 0.5cm 0.5cm, clip]{transmitted_signal_v5.eps}
+        \includegraphics[width=0.5\textwidth, trim=0.5cm 0.5cm 0.5cm 0.5cm, clip]{transmitted_signal_v5.eps}
     \end{figure}
 \end{frame}
 %-----------------------------------------------------------------------------%
@@ -936,7 +935,7 @@ Therefore, for all $n\neq m$,
         
         \item $\text{Number of sampling points} = N, \quad T_s = \frac{1}{N\Delta f}, \quad f_k' = f_0 + k\Delta f + f_{\text{offset}}$
         
-        \item Carrier signal:
+        \item The exponential term of the received carrier signal's IDFT:
         \begin{align*}
             e^{j 2\pi f t} &= e^{j 2\pi (f_0 + k\Delta f + f_{\text{offset}}) \cdot (n \cdot T_s)} \\
             &= e^{j 2\pi (f_0 + k\Delta f + \epsilon \Delta f) \cdot \left(n \cdot \frac{1}{N\Delta f}\right)} \\
@@ -953,7 +952,7 @@ Therefore, for all $n\neq m$,
           \begin{equation*}
             \delta(f - \epsilon)\ \longrightarrow \ \exp(j 2\pi n \epsilon / N)
           \end{equation*}
-        \item Inverse discrete Fourier transform:
+        \item IDFT of $X[k]$ with CFO:
         \begin{equation*}
             \text{IDFT}\{X[k]\} = \sum_{k=0}^{N-1} X_l[k] e^{j 2\pi n (k + \epsilon) / N}
         \end{equation*}
