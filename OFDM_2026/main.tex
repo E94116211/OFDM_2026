@@ -1319,7 +1319,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (1/6)}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (1/7)}
     \begin{itemize}
         \item According to the structure of Tx, it must use $N$ oscillators. 
         \item That increases the hardware complexity.
@@ -1328,7 +1328,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (2/6)}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (2/7)}
     \begin{itemize}
         \item In general, each carrier can be expressed as:
         \begin{equation}
@@ -1345,7 +1345,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (3/6)}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (3/7)}
     \begin{itemize}
         \item  Then we sample the signal at a sampling frequency$\frac{1}{\Delta t}$ , and $A_{n}(t)$ and $\phi_{n}(t)$ becomes:
         \begin{align}
@@ -1363,7 +1363,7 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (4/6)}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (4/7)}
     \begin{itemize}
         \item The inverse discrete Fourier transform (IDFT) is defined as the following:
         \begin{equation}
@@ -1379,7 +1379,30 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (5/6)}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (5/7)}
+    \begin{itemize}
+        \item Put the bracket of eq.(13) next to the IDFT eq.(14):
+    \end{itemize}
+    \[
+        S_{s}(k\Delta t)=\left(\frac{1}{N}\sum_{n=0}^{N-1}A_{n}e^{j\phi_{n}}\,
+        e^{j2\pi nk\,\Delta f\Delta t}\right)e^{j2\pi f_{0}k\Delta t}\quad(13)
+    \]
+    \[
+        f(k\Delta t)=\frac{1}{N}\sum_{n=0}^{N-1}F(n\Delta f)\,e^{j2\pi nk/N}\quad(14)
+    \]
+    \begin{itemize}
+        \item The two sums are equal iff the exponential terms are equal:
+    \end{itemize}
+    \[
+        e^{j2\pi nk\,\Delta f\Delta t}=e^{j2\pi nk/N}
+        \;\rightarrow\;\Delta f\,\Delta t=\frac{1}{N}
+        \;\rightarrow\;\boxed{\;\Delta f=\frac{1}{N\Delta t}\;}\quad(15)
+    \]
+   
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (6/7)}
     \begin{itemize}
         \item If eq.(15) is satisfied,
         \begin{itemize}
@@ -1395,12 +1418,14 @@
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (6/6)}
+    \frametitle{Multi-carrier Equivalent Implementation by using IDFT (7/7)}
         \centering
         \includegraphics[width=0.5\textwidth]{Multi_carrier_Equivalent_1.eps}
         \vspace{5mm}
         \includegraphics[width=0.5\textwidth]{Multi_carrier_Equivalent_2.eps}
 \end{frame}
+
+
 %-----------------------------------------------------------------------------%
 \begin{frame}
     \frametitle{Cyclic Prefix(1/13)}
