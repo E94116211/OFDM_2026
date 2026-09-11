@@ -407,7 +407,7 @@
             h(t)
             &= \sum_{n=0}^{N-1}
             a_n \delta(t-\tau_n) \\
-            &\text{where } a_n \text{ is the amplitude of the }n\text{-th path,}\\
+            &\text{where } a_n \text{ is a random complex value of the }n\text{-th path,}\\
             &\tau_n \text{ is the delay of the }n\text{-th path.}
         \end{align*}
     \end{itemize}
@@ -425,13 +425,13 @@
 \end{frame}
 %----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Multipath propagation (7887/13) --- Proof}
+    \frametitle{Multipath propagation (5/13) --- Proof}
     \small
     \begin{align*}
         &=
         \left(\sum_{n=0}^{N-1}a_n e^{-j2\pi f\tau_n}\right)\left[\sum_{m=0}^{N-1}a_m e^{-j2\pi f\tau_m}\right]^*\\[2mm]
         &=\left(\sum_{n=0}^{N-1}a_n e^{-j2\pi f\tau_n}\right)\left(\sum_{m=0}^{N-1}a_m^*e^{j2\pi f\tau_m}\right)\\[2mm]
-        &=\sum_{n=0}^{N-1}\sum_{m=0}^{N-1}a_n a_me^{-j2\pi f(\tau_n-\tau_m)}, \qquad a_m\in\mathbb{R}
+        &=\sum_{n=0}^{N-1}\sum_{m=0}^{N-1}a_n a_m^*e^{-j2\pi f(\tau_n-\tau_m)}.
     \end{align*}
 
     
@@ -447,9 +447,9 @@
     \end{itemize}
 
 \begin{align*}
-    &\sum_{n=m}
-    a_n a_m e^{-j2\pi f(\tau_n-\tau_m)}\\[2mm]
-    &=\sum_{n=0}^{N-1} a_n^2.
+    &\sum_{n=0}^{N-1}\sum_{m=0}^{N-1}
+    a_n a_m^* e^{-j2\pi f(\tau_n-\tau_m)}\\[2mm]
+    &=\sum_{n=0}^{N-1} |a_n|^2.
 \end{align*}
 
     
@@ -466,12 +466,12 @@
     \end{itemize}
 
     \begin{align*}
-        &\sum_{n\neq m}a_n a_me^{-j2\pi f(\tau_n-\tau_m)}\\[2mm]&
-        =\Big[a_0a_1e^{-j2\pi f(\tau_0-\tau_1)}+a_1a_0e^{-j2\pi f(\tau_1-\tau_0)}\Big]
-        \\[1mm]&\quad+\Big[a_0a_2e^{-j2\pi f(\tau_0-\tau_2)}+a_2a_0e^{-j2\pi f(\tau_2-\tau_0)}
+        &\sum_{n=0}^{N-1}\sum_{\substack{m=0\\m\neq n}}^{N-1}a_n a_m^*e^{-j2\pi f(\tau_n-\tau_m)}\\[2mm]&
+        =\Big[a_0a_1^*e^{-j2\pi f(\tau_0-\tau_1)}+a_1a_0^*e^{-j2\pi f(\tau_1-\tau_0)}\Big]
+        \\[1mm]&\quad+\Big[a_0a_2^*e^{-j2\pi f(\tau_0-\tau_2)}+a_2a_0^*e^{-j2\pi f(\tau_2-\tau_0)}
         \Big]\\[1mm]&\quad
-        +\cdots\\[1mm]&\quad+\Big[a_{N-2}a_{N-1}e^{-j2\pi f(\tau_{N-2}-\tau_{N-1})}
-        \\&\qquad\qquad+a_{N-1}a_{N-2}e^{-j2\pi f(\tau_{N-1}-\tau_{N-2})}\Big].
+        +\cdots\\[1mm]&\quad+\Big[a_{N-2}a_{N-1}^*e^{-j2\pi f(\tau_{N-2}-\tau_{N-1})}
+        \\&\qquad\qquad+a_{N-1}a_{N-2}^*e^{-j2\pi f(\tau_{N-1}-\tau_{N-2})}\Big].
     \end{align*}
 
 
@@ -482,11 +482,9 @@
     \frametitle{Multipath propagation(8/13) --- Proof}
 
     \begin{align*}
-    &=\Big[a_0a_1\left(e^{-j2\pi f(\tau_0-\tau_1)}+e^{j2\pi f(\tau_0-\tau_1)}\right)\Big]\\[2mm]
-    &\quad+\Big[a_0a_2\left(e^{-j2\pi f(\tau_0-\tau_2)}+e^{j2\pi f(\tau_0-\tau_2)}\right)\Big]\\&\quad+\cdots\\[2mm]
-    &\quad+\Big[a_{N-2}a_{N-1}\left(e^{-j2\pi f(\tau_{N-2}-\tau_{N-1})}+e^{j2\pi f(\tau_{N-2}-\tau_{N-1})}\right)\Big]\\[4mm]
-    &=2a_0a_1\cos\left[2\pi f(\tau_0-\tau_1)\right]\\&\quad+2a_0a_2\cos\left[2\pi f(\tau_0-\tau_2)\right]+\cdots
-    \\&\quad+2a_{N-2}a_{N-1}\cos\left[2\pi f(\tau_{N-2}-\tau_{N-1})\right]\\[4mm]
+    &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}\operatorname{Re}\left\{a_n a_m^{*}e^{-j2\pi f(\tau_n-\tau_m)}\right\}\\[6pt]
+    &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}\operatorname{Re}\left\{|a_n|e^{j\phi_n}|a_m|e^{-j\phi_m}e^{-j2\pi f(\tau_n-\tau_m)}\right\}\\[6pt]
+    &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}|a_n||a_m|\operatorname{Re}\left\{e^{j\left[\phi_n-\phi_m-2\pi f(\tau_n-\tau_m)\right]}\right\}\\[6pt]
     \end{align*}
 
 
@@ -498,15 +496,15 @@
 
 
     \begin{align*}
-       &=2\sum_{n=0}^{N-2}\sum_{m=n+1}^{N-1}a_na_m\cos\left[2\pi f(\tau_n-\tau_m)\right].
+        &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}|a_n||a_m|\cos\left[\phi_n-\phi_m-2\pi f(\tau_n-\tau_m)\right]\\
     \end{align*}
-
 Therefore, for all $n\neq m$,
 
     \begin{align*}
-        &\sum_{n\neq m}a_n a_me^{-j2\pi f(\tau_n-\tau_m)}\\[2mm]
-        &=2\sum_{n=0}^{N-2}\sum_{m=n+1}^{N-1}a_n a_m\cos\left[2\pi f(\tau_n-\tau_m)\right].
+        &\sum_{n=0}^{N-1}\sum_{\substack{m=0\\m\neq n}}^{N-1}a_n a_m^*e^{-j2\pi f(\tau_n-\tau_m)}\\[2mm]
+        &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}|a_n||a_m|\cos\left[\phi_n-\phi_m-2\pi f(\tau_n-\tau_m)\right]
     \end{align*}
+
 
 
 \end{frame}
@@ -524,8 +522,7 @@ Therefore, for all $n\neq m$,
 
     \begin{align*}
         |H(f)|^2
-        &=\sum_{n=0}^{N-1} a_n^2+2\sum_{n=0}^{N-2}
-        \sum_{m=n+1}^{N-1}a_n a_m\cos\left[2\pi f(\tau_n-\tau_m)\right].
+        &=\sum_{n=0}^{N-1} |a_n|^2+2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}|a_n||a_m|\cos\left[\phi_n-\phi_m-2\pi f(\tau_n-\tau_m)\right]
     \end{align*}
 
 \end{frame}
