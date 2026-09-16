@@ -905,414 +905,13 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (1/11)}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.8\textwidth]{time_synchronization_error_ICI.eps}
-    \end{figure}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (2/11)}
+    \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{time_synchronization_error_ICI_2.eps}
     \end{figure}  
 \end{frame}
 %-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (3/11)}
-\begin{itemize}
-  \item \textbf{Proof:}
-  \item In the demodulation window of FFT,
-  \vspace{-2pt}
-  \[
-  x(t)=
-  \begin{cases}
-  \displaystyle
-  \sum_{m\in\mathcal{M}}
-  X_{m,\mathrm{prev}}e^{j2\pi f_mt},
-  &0.4\leq t<0.5,\\[8pt]
-  \displaystyle
-  \sum_{m\in\mathcal{M}}
-  X_{m,\mathrm{curr}}e^{j2\pi f_m(t-0.5)},
-  &0.5\leq t<0.9.
-  \end{cases}
-  \]
-  \vspace{-2pt}
-  \item The active subcarrier set is $\mathcal{M}=\{1,2\}$.
-  \item $X_{m,\mathrm{prev}}$ and $X_{m,\mathrm{curr}}$ denote the previous and current symbols on subcarrier $m$.
-\end{itemize}
-
-\begin{columns}[t]
-\column{0.48\textwidth}
-\begin{block}{Index definitions}
-\[
-\begin{aligned}
-m &: \text{transmitted subcarrier},\\
-k &: \text{received FFT bin}.
-\end{aligned}
-\]
-\end{block}
-
-\column{0.48\textwidth}
-\begin{block}{System parameters}
-\[
-\begin{aligned}
-N &: \text{number of samples},\\
-T_s &= \frac{0.5}{N}\ \mathrm{s},\\
-f_1 &= 2\ \mathrm{Hz},\quad f_2 = 4\ \mathrm{Hz}.
-\end{aligned}
-\]
-\end{block}
-\end{columns}
-\end{frame}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (4/11)}
-\begin{itemize}
-  \item The sampling time is
-  \[
-  t_n=0.4+nT_s.
-  \]
-  \item The sampled signal is
-  \vspace{-4pt}
-  \[
-  x[n]=
-  \begin{cases}
-  \displaystyle
-  \sum_{m\in\mathcal{M}}
-  X_{m,\mathrm{prev}}
-  e^{j2\pi f_m(0.4+nT_s)},
-  &0\leq n<0.2N,\\[8pt]
-  \displaystyle
-  \sum_{m\in\mathcal{M}}
-  X_{m,\mathrm{curr}}
-  e^{j2\pi f_m(-0.1+nT_s)},
-  &0.2N\leq n<N.
-  \end{cases}
-  \]
-\end{itemize}
-
-\vspace{-4pt}
-\begin{block}{FFT output}
-\[
-\boxed{
-Y[k]=\frac{1}{N}
-\sum_{n=0}^{N-1}
-x[n]e^{-j2\pi kn/N}
-}
-\]
-\end{block}
-
-\vspace{-4pt}
-\begin{itemize}
-  \item Because the FFT window contains two OFDM symbols,
-  \vspace{-2pt}
-  \[
-  Y[k]
-  =
-  \frac{1}{N}
-  \sum_{n=0}^{0.2N-1}
-  x_{\mathrm{prev}}[n]e^{-j2\pi kn/N}
-  +
-  \frac{1}{N}
-  \sum_{n=0.2N}^{N-1}
-  x_{\mathrm{curr}}[n]e^{-j2\pi kn/N}.
-  \]
-\end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (5/11)}
-\begin{itemize}
-  \item Assume the orthogonal subcarrier spacing satisfies
-  \[
-  f_mT_s=\frac{m}{N}.
-  \]
-  \item Define $\alpha_{m\rightarrow k}$ as the contribution from the previous OFDM symbol to FFT bin $k$:
-\end{itemize}
-\vspace{-4pt}
-\[
-\boxed{
-\alpha_{m\rightarrow k}
-\triangleq
-\frac{1}{N}
-\sum_{n=0}^{0.2N-1}
-e^{j2\pi f_m(0.4+nT_s)}
-e^{-j2\pi kn/N}
-}
-\]
-\vspace{2pt}
-\begin{itemize}
-  \item Using $f_mT_s=m/N$,
-  \[
-  \alpha_{m\rightarrow k}
-  =
-  \frac{e^{j2\pi f_m(0.4)}}{N}
-  \sum_{n=0}^{0.2N-1}
-  e^{j2\pi(m-k)n/N}.
-  \]
-  \item Let $r_{m,k} \triangleq e^{j2\pi(m-k)/N}$. Then,
-  \[
-  \boxed{
-  \alpha_{m\rightarrow k}
-  =
-  \frac{e^{j2\pi f_m(0.4)}}{N}
-  \sum_{n=0}^{0.2N-1}
-  r_{m,k}^{\,n}
-  }
-  \]
-\end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (6/11)}
-\begin{itemize}
-  \item Define $\beta_{m\rightarrow k}$ as the contribution from the current OFDM symbol to FFT bin $k$:
-\end{itemize}
-\vspace{-4pt}
-\[
-\boxed{
-\beta_{m\rightarrow k}
-\triangleq
-\frac{1}{N}
-\sum_{n=0.2N}^{N-1}
-e^{j2\pi f_m(-0.1+nT_s)}
-e^{-j2\pi kn/N}
-}
-\]
-\vspace{2pt}
-\begin{itemize}
-  \item Using $f_mT_s=m/N$,
-  \[
-  \beta_{m\rightarrow k}
-  =
-  \frac{e^{-j2\pi f_m(0.1)}}{N}
-  \sum_{n=0.2N}^{N-1}
-  e^{j2\pi(m-k)n/N}
-  =
-  \frac{e^{-j2\pi f_m(0.1)}}{N}
-  \sum_{n=0.2N}^{N-1}
-  r_{m,k}^{\,n}.
-  \]
-\end{itemize}
-\vspace{-2pt}
-\begin{block}{Frequency-domain representation}
-\[
-\boxed{
-Y[k]
-=
-\sum_{m\in\mathcal{M}}
-X_{m,\mathrm{prev}}\alpha_{m\rightarrow k}
-+
-\sum_{m\in\mathcal{M}}
-X_{m,\mathrm{curr}}\beta_{m\rightarrow k}
-}
-\]
-\end{block}
-\end{frame}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (7/11)}
-\begin{itemize}
-  \item \textbf{Case 1: $m=k$}
-  \item For the previous OFDM symbol,
-  \[
-  \alpha_{k\rightarrow k}
-  =
-  \frac{e^{j2\pi f_k(0.4)}}{N}
-  \sum_{n=0}^{0.2N-1}1
-  =
-  \boxed{
-  0.2e^{j0.8\pi f_k}
-  \neq 0
-  }
-  \qquad \text{(ISI)}.
-  \]
-  \item For the current OFDM symbol,
-  \[
-  \beta_{k\rightarrow k}
-  =
-  \frac{e^{-j2\pi f_k(0.1)}}{N}
-  \sum_{n=0.2N}^{N-1}1
-  =
-  \boxed{
-  0.8e^{-j0.2\pi f_k}
-  }.
-  \]
-\end{itemize}
-\vspace{-4pt}
-\begin{block}{Interpretation}
-\small
-The desired subcarrier is attenuated to $80\%$ of its original amplitude and experiences a phase rotation. The previous OFDM symbol contributes ISI to the same FFT bin.
-\end{block}
-\end{frame}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (8/11)}
-\begin{itemize}
-  \item \textbf{Case 2: $m\neq k$}
-  \item For the previous OFDM symbol,
-  \[
-  \alpha_{m\rightarrow k}
-  =
-  \frac{e^{j2\pi f_m(0.4)}}{N}
-  \sum_{n=0}^{0.2N-1}
-  r_{m,k}^{\,n}.
-  \]
-  \item Since $r_{m,k}\neq 1$, the geometric series gives
-  \[
-  \boxed{
-  \alpha_{m\rightarrow k}
-  =
-  \frac{e^{j2\pi f_m(0.4)}}{N}
-  \frac{1-r_{m,k}^{\,0.2N}}
-        {1-r_{m,k}}
-  }
-  \]
-  \item In general, $\alpha_{m\rightarrow k}\neq 0$.
-\end{itemize}
-\vspace{-2pt}
-\begin{block}{Interpretation}
-\small
-The previous OFDM symbol leaks into the current FFT window. Therefore, it produces interference at the considered FFT bin $k$.
-\end{block}
-\end{frame}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (9/11)}
-\begin{itemize}
-  \item For the current OFDM symbol and $m\neq k$,
-  \[
-  \beta_{m\rightarrow k}
-  =
-  \frac{e^{-j2\pi f_m(0.1)}}{N}
-  \sum_{n=0.2N}^{N-1}
-  r_{m,k}^{\,n}.
-  \]
-  \item Applying the geometric-series formula,
-  \[
-  \boxed{
-  \beta_{m\rightarrow k}
-  =
-  \frac{e^{-j2\pi f_m(0.1)}}{N}
-  \frac{
-  r_{m,k}^{\,0.2N}
-  \left(1-r_{m,k}^{\,0.8N}\right)
-  }
-  {1-r_{m,k}}
-  }
-  \]
-  \item In general, $\beta_{m\rightarrow k}\neq 0, \qquad m\neq k$.
-\end{itemize}
-\vspace{-2pt}
-\begin{block}{Interpretation}
-\small
-The other current subcarriers generate inter-carrier interference through $\beta_{m\rightarrow k}$.
-\end{block}
-\end{frame}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (10/11)}
-\begin{itemize}
-  \item For two active subcarriers, $\mathcal{M}=\{1,2\}$,
-\end{itemize}
-\vspace{-6pt}
-\[
-\begin{aligned}
-Y[1]={}&
-\underbrace{\beta_{1\rightarrow1}X_{1,\mathrm{curr}}}
-_{\text{desired signal}}
-+
-\underbrace{\beta_{2\rightarrow1}X_{2,\mathrm{curr}}}
-_{\text{ICI}}
-+
-\underbrace{\alpha_{1\rightarrow1}X_{1,\mathrm{prev}}
-+\alpha_{2\rightarrow1}X_{2,\mathrm{prev}}}
-_{\text{previous-symbol interference}},
-\\[8pt]
-Y[2]={}&
-\underbrace{\beta_{2\rightarrow2}X_{2,\mathrm{curr}}}
-_{\text{desired signal}}
-+
-\underbrace{\beta_{1\rightarrow2}X_{1,\mathrm{curr}}}
-_{\text{ICI}}
-+
-\underbrace{\alpha_{2\rightarrow2}X_{2,\mathrm{prev}}
-+\alpha_{1\rightarrow2}X_{1,\mathrm{prev}}}
-_{\text{previous-symbol interference}}.
-\end{aligned}
-\]
-\vspace{-4pt}
-\begin{itemize}
-  \item Therefore, timing synchronization error causes
-  \begin{itemize}
-    \item amplitude attenuation and phase rotation of the desired signal;
-    \item ICI from other current subcarriers;
-    \item ISI and additional interference from the previous OFDM symbol.
-  \end{itemize}
-\end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-
-%-----------------------------------------------------------------------------%
-\begin{frame}
-\frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (11/11)}
-\begin{block}{Without timing synchronization error}
-\[
-\boxed{
-Y[k]=X_{k,\mathrm{curr}}
-}
-\]
-\end{block}
-\vspace{-4pt}
-\begin{itemize}
-  \item When $m=k$,
-  \[
-  \beta_{k\rightarrow k}
-  =
-  \frac{1}{N}
-  \sum_{n=0}^{N-1}1
-  =
-  1.
-  \]
-  \item When $m\neq k$,
-  \[
-  \beta_{m\rightarrow k}
-  =
-  \frac{1}{N}
-  \sum_{n=0}^{N-1}
-  e^{j2\pi(m-k)n/N}.
-  \]
-  \item Because of subcarrier orthogonality,
-  \[
-  \boxed{
-  \beta_{m\rightarrow k}=0,
-  \qquad m\neq k.
-  }
-  \]
-\end{itemize}
-\vspace{-4pt}
-\begin{block}{Conclusion}
-\small
-Without timing synchronization error, the FFT output contains only the desired current subcarrier symbol. ISI and ICI are absent.
-\end{block}
-\end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
     \frametitle{Mathematical Expression of OFDM Signal (1/4)}
@@ -2120,6 +1719,316 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
       \centering
       \includegraphics[width=1\textwidth]{CFO_1.png}
     \end{figure}
+    \begin{itemize}
+      \item DMB: Digital Multimedia Broadcasting
+      \item Doppler shift's calculation: $f_d = \frac{v}{c} f_c$, where $v$ is the relative velocity, $c$ is the speed of light, and $f_c$ is the carrier frequency.
+    \end{itemize}
 \end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (1/8)}
+
+\begin{itemize}
+  \setlength{\itemsep}{1pt} % 縮減列表項目之間的間距
+  \item \textbf{Proof:}
+  \item In the demodulation window of FFT,
+  \vspace{-8pt}
+  \[
+  \small % 將大公式稍微微調大小
+  x(t)=
+  \begin{cases}
+  \displaystyle
+  \sum_{m\in\mathcal{M}}
+  X_{m,\mathrm{prev}}e^{j2\pi f_mt},
+  &0.4\leq t<0.5,\\[6pt]
+  \displaystyle
+  \sum_{m\in\mathcal{M}}
+  X_{m,\mathrm{curr}}e^{j2\pi f_m(t-0.5)},
+  &0.5\leq t<0.9.
+  \end{cases}
+  \]
+  \vspace{-8pt}
+  \item The active subcarrier set is $\mathcal{M}=\{1,2\}$.
+  \item $X_{m,\mathrm{prev}}$ and $X_{m,\mathrm{curr}}$ denote the previous and current symbols on subcarrier $m$.
+\end{itemize}
+
+\vspace{-5pt} % 向上拉近 columns 與上方列表的距離
+
+\begin{columns}[t]
+\column{0.48\textwidth}
+\begin{block}{Index definitions}
+\vspace{-6pt}
+\[
+\begin{aligned}
+m &: \text{transmitted subcarrier},\\
+k &: \text{received FFT bin}.
+\end{aligned}
+\]
+\vspace{-8pt}
+\end{block}
+
+\column{0.48\textwidth}
+\begin{block}{System parameters}
+\vspace{-6pt}
+\[\scriptsize
+\begin{aligned}
+N &: \text{number of samples},\\
+T_s &= \frac{0.5}{N}\ \mathrm{s},\quad f_1 = 2\ \mathrm{Hz},\quad f_2 = 4\ \mathrm{Hz}.
+\end{aligned}
+\]
+\vspace{-8pt}
+\end{block}
+\end{columns}
+\end{frame}
+%-----------------------------------------------------------------------------%
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (2/8)}
+\begin{itemize}
+  \item The sampling time is
+  \[\scriptsize
+  t_n=0.4+nT_s.
+  \]
+  \item The sampled signal is
+  \vspace{-6pt}
+  \[\scriptsize
+  x[n]=
+  \begin{cases}
+  \displaystyle
+  \sum_{m\in\mathcal{M}}
+  X_{m,\mathrm{prev}}
+  e^{j2\pi f_m(0.4+nT_s)},
+  &0\leq n<0.2N,\\[8pt]
+  \displaystyle
+  \sum_{m\in\mathcal{M}}
+  X_{m,\mathrm{curr}}
+  e^{j2\pi f_m(-0.1+nT_s)},
+  &0.2N\leq n<N.
+  \end{cases}
+  \]
+\end{itemize}
+
+\vspace{-6pt}
+\begin{itemize}
+  \item The FFT window contains two OFDM symbols,
+  \vspace{-2pt}
+  \[\scriptsize
+  Y[k]
+  =
+  \frac{1}{N}
+  \sum_{n=0}^{0.2N-1}
+  x_{\mathrm{prev}}[n]e^{-j2\pi kn/N}
+  +
+  \frac{1}{N}
+  \sum_{n=0.2N}^{N-1}
+  x_{\mathrm{curr}}[n]e^{-j2\pi kn/N}.
+  \]
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (3/8)}
+\begin{itemize}
+  \item Assume the orthogonal subcarrier spacing satisfies
+  \[
+  f_mT_s=\frac{m}{N}.
+  \]
+  \item Define $\alpha_{m\rightarrow k}$ as the contribution from the previous OFDM symbol to FFT bin $k$:
+\end{itemize}
+\vspace{-4pt}
+\[
+\alpha_{m\rightarrow k}
+\triangleq
+\frac{1}{N}
+\sum_{n=0}^{0.2N-1}
+e^{j2\pi f_m(0.4+nT_s)}
+e^{-j2\pi kn/N}
+\]
+\vspace{2pt}
+\begin{itemize}
+  \item Using $f_mT_s=m/N$,
+  \[
+  \alpha_{m\rightarrow k}
+  =
+  \frac{e^{j2\pi f_m(0.4)}}{N}
+  \sum_{n=0}^{0.2N-1}
+  e^{j2\pi(m-k)n/N}.
+  \]
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (4/8)}
+\begin{itemize}
+  \item Define $\beta_{m\rightarrow k}$ as the contribution from the current OFDM symbol to FFT bin $k$:
+\end{itemize}
+\vspace{-4pt}
+\[
+\beta_{m\rightarrow k}
+\triangleq
+\frac{1}{N}
+\sum_{n=0.2N}^{N-1}
+e^{j2\pi f_m(-0.1+nT_s)}
+e^{-j2\pi kn/N}
+\]
+\vspace{2pt}
+\begin{itemize}
+  \item Using $f_mT_s=m/N$,
+  \[
+  \beta_{m\rightarrow k}
+  =
+  \frac{e^{-j2\pi f_m(0.1)}}{N}
+  \sum_{n=0.2N}^{N-1}
+  e^{j2\pi(m-k)n/N}
+  =
+  \frac{e^{-j2\pi f_m(0.1)}}{N}
+  \sum_{n=0.2N}^{N-1}
+  r_{m,k}^{\,n}.
+  \]
+\end{itemize}
+\vspace{-2pt}
+\begin{block}{Frequency-domain representation}
+\[
+Y[k]
+=
+\sum_{m\in\mathcal{M}}
+X_{m,\mathrm{prev}}\alpha_{m\rightarrow k}
++
+\sum_{m\in\mathcal{M}}
+X_{m,\mathrm{curr}}\beta_{m\rightarrow k}
+\]
+\end{block}
+\end{frame}
+%-----------------------------------------------------------------------------%
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (5/8)}
+\begin{itemize}
+  \item \textbf{Case 1: $m=k$}
+  \item For the previous OFDM symbol,
+  \[
+  \alpha_{k\rightarrow k}
+  =
+  \frac{e^{j2\pi f_k(0.4)}}{N}
+  \sum_{n=0}^{0.2N-1}1
+  =
+  \boxed{
+  0.2e^{j0.8\pi f_k}
+  \neq 0
+  }
+  \qquad \text{(ISI)}.
+  \]
+  \item For the current OFDM symbol,
+  \[
+  \beta_{k\rightarrow k}
+  =
+  \frac{e^{-j2\pi f_k(0.1)}}{N}
+  \sum_{n=0.2N}^{N-1}1
+  =
+  \boxed{
+  0.8e^{-j0.2\pi f_k}
+  }.
+  \]
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (6/8)}
+\begin{itemize}
+  \item \textbf{Case 2: $m\neq k$}
+  \item For the previous OFDM symbol,
+  \[
+  \alpha_{m\rightarrow k}
+  =
+  \frac{e^{j2\pi f_m(0.4)}}{N}
+  \sum_{n=0}^{0.2N-1}
+  e^{j2\pi(m-k)n/N}.
+  \]
+  \item Since $r_{m,k}\neq 1$, the geometric series gives
+  \[
+  \boxed{
+  \alpha_{m\rightarrow k}
+  =
+  \frac{e^{j2\pi f_m(0.4)}}{N}
+  \frac{1-e^{j2\pi(m-k)(0.2N)/N}}
+        {1-e^{j2\pi(m-k)(N)/N}}
+  }
+  \]
+  \item In general, $\alpha_{m\rightarrow k}\neq 0$.
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (7/8)}
+\begin{itemize}
+  \item For the current OFDM symbol and $m\neq k$,
+  \[
+  \beta_{m\rightarrow k}
+  =
+  \frac{e^{-j2\pi f_m(0.1)}}{N}
+  \sum_{n=0.2N}^{N-1}
+  e^{j2\pi(m-k)n/N}.
+  \]
+  \item Applying the geometric-series formula,
+  \[
+  \boxed{
+  \beta_{m\rightarrow k}
+  =
+  \frac{e^{-j2\pi f_m(0.1)}}{N}
+  \frac{
+  e^{j2\pi(m-k)(0.2N)/N}
+  \left(1-e^{j2\pi(m-k)(0.8N)/N}\right)
+  }
+  {1-e^{j2\pi(m-k)(N)/N}}
+  }
+  \]
+  \item In general, $\beta_{m\rightarrow k}\neq 0, \qquad m\neq k$.
+\end{itemize}
+\end{frame}
+%-----------------------------------------------------------------------------%
+
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (8/8)}
+\begin{itemize}
+  \item For two active subcarriers, $\mathcal{M}=\{1,2\}$,
+\end{itemize}
+\[
+\begin{aligned}
+Y[1]={}&
+\underbrace{\beta_{1\rightarrow1}X_{1,\mathrm{curr}}}
+_{\text{desired signal}}
++
+\underbrace{\beta_{2\rightarrow1}X_{2,\mathrm{curr}}}
+_{\text{ICI}}
++
+\underbrace{\alpha_{1\rightarrow1}X_{1,\mathrm{prev}}
++\alpha_{2\rightarrow1}X_{2,\mathrm{prev}}}
+_{\text{previous-symbol interference}},
+\\[8pt]
+Y[2]={}&
+\underbrace{\beta_{2\rightarrow2}X_{2,\mathrm{curr}}}
+_{\text{desired signal}}
++
+\underbrace{\beta_{1\rightarrow2}X_{1,\mathrm{curr}}}
+_{\text{ICI}}
++
+\underbrace{\alpha_{2\rightarrow2}X_{2,\mathrm{prev}}
++\alpha_{1\rightarrow2}X_{1,\mathrm{prev}}}
+_{\text{previous-symbol interference}}.
+\end{aligned}
+\]
+\end{frame}
+%-----------------------------------------------------------------------------%
 %-----------------------------------------------------------------------------%
 \end{document}  
