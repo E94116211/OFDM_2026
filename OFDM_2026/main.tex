@@ -1649,7 +1649,7 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
         \item $\epsilon_{i}$ is the integer multiple of $\Delta f$ (iCFO/IFO).
         \item $\epsilon_{f}$ is the fractional multiple of $\Delta f$ (fCFO/FFO).
       \end{itemize}
-      \item If iCFO exists, carriers are still orthogonal, but BER increases.
+      \item If iCFO exists, carriers are still orthogonal, but the signal is wrong.
       \item If fCFO exists, carriers are not orthogonal, and ICI occurs.
     \end{itemize}
 \end{frame}
@@ -1726,7 +1726,24 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (1/8)}
+    \frametitle{Timing Synchronization Error Results in Inter-Symbol Interference (ISI)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{time_synchronization_ISI.eps}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{time_synchronization_error_ICI_2.eps}
+    \end{figure}  
+\end{frame}
+%-----------------------------------------------------------------------------%
+%-----------------------------------------------------------------------------%
+\begin{frame}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (1/9)}
 
 \begin{itemize}
   \setlength{\itemsep}{1pt} % 縮減列表項目之間的間距
@@ -1784,7 +1801,7 @@ T_s &= \frac{0.5}{N}\ \mathrm{s},\quad f_1 = 2\ \mathrm{Hz},\quad f_2 = 4\ \math
 
 %-----------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (2/8)}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (2/9)}
 \begin{itemize}
   \item The sampling time is
   \[\scriptsize
@@ -1830,7 +1847,7 @@ T_s &= \frac{0.5}{N}\ \mathrm{s},\quad f_1 = 2\ \mathrm{Hz},\quad f_2 = 4\ \math
 
 %-----------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (3/8)}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (3/9)}
 \begin{itemize}
   \item Assume the orthogonal subcarrier spacing satisfies
   \[
@@ -1863,7 +1880,7 @@ e^{-j2\pi kn/N}
 
 %-----------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (4/8)}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (4/9)}
 \begin{itemize}
   \item Define $\beta_{m\rightarrow k}$ as the contribution from the current OFDM symbol to FFT bin $k$:
 \end{itemize}
@@ -1908,7 +1925,7 @@ X_{m,\mathrm{curr}}\beta_{m\rightarrow k}
 
 %-----------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (5/8)}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (5/9)}
 \begin{itemize}
   \item \textbf{Case 1: $m=k$}
   \item For the previous OFDM symbol,
@@ -1941,7 +1958,7 @@ X_{m,\mathrm{curr}}\beta_{m\rightarrow k}
 
 %-----------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (6/8)}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (6/9)}
 \begin{itemize}
   \item \textbf{Case 2: $m\neq k$}
   \item For the previous OFDM symbol,
@@ -1969,7 +1986,7 @@ X_{m,\mathrm{curr}}\beta_{m\rightarrow k}
 
 %-----------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (7/8)}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (7/9)}
 \begin{itemize}
   \item For the current OFDM symbol and $m\neq k$,
   \[
@@ -1999,7 +2016,7 @@ X_{m,\mathrm{curr}}\beta_{m\rightarrow k}
 
 %-----------------------------------------------------------------------------%
 \begin{frame}
-\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (8/8)}
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (8/9)}
 \begin{itemize}
   \item For two active subcarriers, $\mathcal{M}=\{1,2\}$,
 \end{itemize}
@@ -2029,6 +2046,52 @@ _{\text{previous-symbol interference}}.
 \end{aligned}
 \]
 \end{frame}
+%-----------------------------------------------------------------------------%
+%-----------------------------------------------------------------------------%
+
+\begin{frame}
+
+\frametitle{Appendix: Timing Synchronization Error Results in Inter-Carrier Interference (ICI) (9/9)}
+
+\vspace{-4pt}
+
+\begin{itemize}
+
+    \item $Y[k]=X_{k,\mathrm{curr}}$
+  \item When $m=k$,
+
+  \[
+  \beta_{k\rightarrow k}
+  =
+  \frac{1}{N}
+  \sum_{n=0}^{N-1}1
+  =
+  1.
+  \]
+
+  \item When $m\neq k$,
+
+  \[
+  \beta_{m\rightarrow k}
+  =
+  \frac{1}{N}
+  \sum_{n=0}^{N-1}
+  e^{j2\pi(m-k)n/N}.
+  \]
+
+  \item Because of subcarrier orthogonality,
+
+  \[
+  \boxed{
+  \beta_{m\rightarrow k}=0,
+  \qquad m\neq k.
+  }
+  \]
+
+\end{itemize}
+
+\end{frame}
+
 %-----------------------------------------------------------------------------%
 %-----------------------------------------------------------------------------%
 \end{document}  
