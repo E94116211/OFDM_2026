@@ -482,9 +482,10 @@
     \frametitle{Multipath propagation(8/13) --- Proof}
 
     \begin{align*}
-    &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}\operatorname{Re}\left\{a_n a_m^{*}e^{-j2\pi f(\tau_n-\tau_m)}\right\}\\[6pt]
-    &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}\operatorname{Re}\left\{|a_n|e^{j\phi_n}|a_m|e^{-j\phi_m}e^{-j2\pi f(\tau_n-\tau_m)}\right\}\\[6pt]
-    &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}|a_n||a_m|\operatorname{Re}\left\{e^{j\left[\phi_n-\phi_m-2\pi f(\tau_n-\tau_m)\right]}\right\}\\[6pt]
+    &=2\sum_{n=0}^{N-1}\sum_{\substack{m=0\\n\neq m}}^{N-1}\operatorname{Re}\left\{a_n a_m^{*}e^{-j2\pi f(\tau_n-\tau_m)}\right\}\\[6pt]
+    &\qquad\left(a_n=|a_n|e^{j\phi_n},\quad a_m=|a_m|e^{j\phi_m}\right)\\
+    &=2\sum_{n=0}^{N-1}\sum_{\substack{m=0\\n\neq m}}^{N-1}\operatorname{Re}\left\{|a_n|e^{j\phi_n}|a_m|e^{-j\phi_m}e^{-j2\pi f(\tau_n-\tau_m)}\right\}\\[6pt]
+    &=2\sum_{n=0}^{N-1}\sum_{\substack{m=0\\n\neq m}}^{N-1}|a_n||a_m|\operatorname{Re}\left\{e^{j\left[\phi_n-\phi_m-2\pi f(\tau_n-\tau_m)\right]}\right\}\\[6pt]
     \end{align*}
 
 
@@ -496,13 +497,13 @@
 
 
     \begin{align*}
-        &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}|a_n||a_m|\cos\left[\phi_n-\phi_m-2\pi f(\tau_n-\tau_m)\right]\\
+        &=2\sum_{n=0}^{N-2}\sum_{\substack{m=0\\n\neq m}}^{N-1}|a_n||a_m|\cos\left[2\pi f(\tau_n-\tau_m)-\phi_n+\phi_m\right]\\
     \end{align*}
 Therefore, for all $n\neq m$,
 
     \begin{align*}
         &\sum_{n=0}^{N-1}\sum_{\substack{m=0\\m\neq n}}^{N-1}a_n a_m^*e^{-j2\pi f(\tau_n-\tau_m)}\\[2mm]
-        &=2\sum_{n=0}^{N-2}\sum_{\substack{m=n+1\\n<m}}^{N-1}|a_n||a_m|\cos\left[\phi_n-\phi_m-2\pi f(\tau_n-\tau_m)\right]
+        &=2\sum_{n=0}^{N-2}\sum_{\substack{m=0\\n\neq m}}^{N-1}|a_n||a_m|\cos\left[2\pi f(\tau_n-\tau_m)-\phi_n+\phi_m\right]
     \end{align*}
 
 
