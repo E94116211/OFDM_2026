@@ -1801,7 +1801,7 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
     \item ADC sampling-clock mismatch scales the RX subcarrier spacing by $(1+\zeta)$,
     where $\zeta$ is the (fractional) sampling clock offset (SCO), also called the sampling frequency offset (SFO):
     \[
-        \zeta=\frac{\Delta f_{rx}-\Delta f_{tx}}{\Delta f_{tx}}=\frac{\Delta t_{rx}-\Delta t_{tx}}{\Delta t_{tx}}
+        \zeta=\frac{\Delta f_{rx}-\Delta f_{tx}}{\Delta f_{tx}}=\frac{\Delta t_{tx}-\Delta t_{rx}}{\Delta t_{rx}}
     \]
 
     \item Hence the $k$-th RX basis function is
@@ -1814,7 +1814,7 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
 % -----------------------------------------------------------
 % Frame 3: Cross-Correlation and the Origin of ICI
 % -----------------------------------------------------------
-\begin{frame}{Frequency Errors Result in Inter-Carrier Interference (ICI)}
+\begin{frame}{Appendix}
 
 \begin{itemize}
     \item Evaluate the integral between the $n$-th TX and $k$-th RX
@@ -1837,27 +1837,10 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
 \end{itemize}
 
 \end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Timing Synchronization Error Results in Inter-Symbol Interference (ISI)}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{time_synchronization_ISI.eps}
-    \end{figure}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Timing Synchronization Error Results in Inter-Carrier Interference (ICI)}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.8\textwidth]{time_synchronization_error_ICI_2.eps}
-    \end{figure}  
-\end{frame}
-%-----------------------------------------------------------------------------%
 % -----------------------------------------------------------
 % Frame 1 (mirrors p.102): Ideal boundary vs. actual FFT window
 % -----------------------------------------------------------
-\begin{frame}{Origin of the Symbol Timing Offset (STO) (1/2)}
+\begin{frame}{Appendix}
 
 \begin{itemize}
     \item Recall the single-symbol OFDM expression:
@@ -1887,7 +1870,7 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
 % -----------------------------------------------------------
 % Frame 2 (mirrors p.103): What the receiver actually captures
 % -----------------------------------------------------------
-\begin{frame}{Origin of the Symbol Timing Offset (STO) (2/2)}
+\begin{frame}{Appendix}
 
 \begin{itemize}
     \item
@@ -1916,7 +1899,7 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Appendix: Proof of Doppler's Shift}
+    \frametitle{Appendix}
     \begin{itemize}
         \item \textbf{Proof of Doppler's shift:}
         \begin{itemize}
