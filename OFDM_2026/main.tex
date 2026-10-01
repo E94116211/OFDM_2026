@@ -889,19 +889,10 @@ Therefore, for all $n\neq m$,
     \begin{itemize}
         \item There are a few possible causes of frequency errors:
         \begin{itemize}
-            \item Carrier Frequency Offset (CFO)
-            \begin{itemize}
                 \item Local Oscillator Mismatch of TX/RX
                 \item Doppler Frequency Shift
-            \end{itemize}
-            \item Sampling Clock Offset (SCO)
-            \begin{itemize}
                 \item ADC/DAC Clock Mismatch
-            \end{itemize}
-            \item Phase Noise
-            \begin{itemize}
                 \item Local Oscillator Short-term Instability
-            \end{itemize}
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -1089,7 +1080,7 @@ Therefore, for all $n\neq m$,
 
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(1/13)}
+    \frametitle{Cyclic Prefix(1/11)}
     \begin{itemize}
         \item In  multipath channel, delayed replicas of previous OFDM signal lead to ISI between successive OFDM signals.
     \end{itemize}
@@ -1107,7 +1098,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(2/13)}
+    \frametitle{Cyclic Prefix(2/11)}
     \begin{itemize}
         \item However, adding guard interval breaks the orthogonality, leading to intercarrier interference (ICI).
     \end{itemize}
@@ -1122,7 +1113,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(3/13)}
+    \frametitle{Cyclic Prefix(3/11)}
     \begin{itemize}
         \item Cyclic prefix (CP):A copy of the last part of OFDM signal is attached to the front of itself.
     \end{itemize}
@@ -1140,46 +1131,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(4/13)}
-    \begin{itemize}
-        \item Within the DFT interval, if a subcarrier does not complete an integer number of cycles, its orthogonality is lost, leading to ICI.
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.5\textwidth]{GI_cause_ISI_modify.png}
-    \end{figure}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Cyclic Prefix(5/13)}
-    \begin{itemize}
-    \item Original continuous subcarrier:
-    \begin{align*}
-        x(t) &= e^{j 2\pi f_0 t},\, -\infty < t < \infty \\
-        X(f) &= \delta(f - f_0)
-    \end{align*}
-    \item Guard interval of duration $T_{\mathrm{GI}}$:
-    \[
-        a(t) = 
-        \begin{cases}
-            1, & T_{\mathrm{GI}} \le t \le T_{\mathrm{GI}}+T \\
-            0, & \text{otherwise}
-        \end{cases}
-    \]
-    \[
-        A(f) = T \, \mathrm{sinc}(fT)\, e^{-j2\pi f (T_{\mathrm{GI}} + T/2)}.
-    \]
-    \item Subcarrier with GI:
-    \begin{align*} 
-        \hat{x}(t) &= a(t)\,e^{j2\pi f_0 t} \\
-        \hat{X}(f) &= A(f) * \delta(f-f_0) = A(f-f_0).
-    \end{align*}
-    Due to GI, the spectrum becomes a shifted sinc (not a perfect delta).
-\end{itemize}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Cyclic Prefix(6/13)}
+    \frametitle{Cyclic Prefix(4/11)}
     \begin{itemize}
         \item Linear convolution vs. Circular convolution
     \end{itemize}
@@ -1190,7 +1142,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(7/13)}
+    \frametitle{Cyclic Prefix(5/11)}
     \begin{itemize}
         \item Linear convolution vs. Circular convolution
     \end{itemize}
@@ -1201,7 +1153,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(8/13)}
+    \frametitle{Cyclic Prefix(6/11)}
     \begin{itemize}
         \item Linear convolution vs Circular convolution 
     \end{itemize}
@@ -1212,7 +1164,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(9/13)}
+    \frametitle{Cyclic Prefix(7/11)}
     \begin{itemize}
         \item Channel effect with cyclic prefix
     \end{itemize} 
@@ -1223,7 +1175,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-  \frametitle{Cyclic Prefix(10/13)}
+  \frametitle{Cyclic Prefix(8/11)}
   \begin{itemize}
     \item Spectrum of channel $h[n]$ response with length $L_{h}$ (smaller than $N_{g}$ )\\
     $H_{k}=\mathrm{FFT}\{h[n]\}$\\
@@ -1240,7 +1192,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(11/13)}
+    \frametitle{Cyclic Prefix(9/11)}
     \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{block_diagram.jpg}
@@ -1248,7 +1200,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(12/13)}
+    \frametitle{Cyclic Prefix(10/11)}
     \begin{itemize}
         \item Remove Cyclic Prefix
     \end{itemize}
@@ -1259,7 +1211,7 @@ Therefore, for all $n\neq m$,
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
-    \frametitle{Cyclic Prefix(13/13)}
+    \frametitle{Cyclic Prefix(11/11)}
     \begin{itemize}
         \item One of the most important reasons to do OFDM is the efficient way it deals with multipath delay spread.
         \item To eliminate inter-symbol interference (ISI) almost completely, a CP duration time ($\Delta$) is introduced for each OFDM symbol.\\
@@ -1661,7 +1613,7 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
     \end{itemize}
     \begin{figure}
       \centering
-      \includegraphics[width=0.65\textwidth]{picture2.jpg}
+      \includegraphics[width=0.65\textwidth]{system.png}
     \end{figure}
     \begingroup
     \renewcommand\thefootnote{}
@@ -1745,97 +1697,8 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
     \frametitle{Appendix}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth]{updownconv.png}
+        \includegraphics[width=0.9\textwidth]{updown_.jpg}
     \end{figure}
-\end{frame}
-%-----------------------------------------------------------------------------%
-\begin{frame}
-    \frametitle{Appendix}
-    \begin{figure}
-      \centering
-      \includegraphics[width=0.8\textwidth]{sco.png}
-    \end{figure}
-\end{frame}
-% -----------------------------------------------------------
-% Frame 1: Upconversion at the Transmitter
-% -----------------------------------------------------------
-\begin{frame}{Appendix}
-
-\begin{itemize}
-    \item Original signal: $d(n) = a(n) + jb(n)$
-
-    \item Complex baseband-equivalent OFDM signal:
-    \[
-        \sum_{n=0}^{N-1} d(n)\,\psi_n(t)
-    \]
-
-    \item TX local-oscillator (LO) signal: $e^{j2\pi f_{0,tx}t}$
-
-    \item After upconversion, the $n$-th subcarrier basis function becomes
-    \[
-        \psi_{n,tx}(t) = e^{j2\pi f_{n,tx}t} = e^{j2\pi(f_{0,tx}+n\Delta f)t}
-    \]
-
-    \item Transmitted (complex bandpass-equivalent) signal:
-    \[
-        D(t) = \sum_{n=0}^{N-1} d(n)\,\psi_{n,tx}(t)
-    \]
-\end{itemize}
-
-\end{frame}
-
-% -----------------------------------------------------------
-% Frame 2: Downconversion at the Receiver
-% -----------------------------------------------------------
-\begin{frame}{Appendix}
-
-\begin{itemize}
-    \item In the presence of a Doppler shift $f_d$, the received version of the
-    $n$-th TX subcarrier basis function is
-    \[
-        \psi_{n,tx}(t) = e^{j2\pi(f_{0,tx}+n\Delta f+f_d)t}
-    \]
-
-    \item RX LO signal: $e^{j2\pi f_{0,rx}t}$
-
-    \item ADC sampling-clock mismatch scales the RX subcarrier spacing by $(1+\zeta)$,
-    where $\zeta$ is the (fractional) sampling clock offset (SCO), also called the sampling frequency offset (SFO):
-    \[
-        \zeta=\frac{\Delta f_{rx}-\Delta f_{tx}}{\Delta f_{tx}}=\frac{\Delta t_{tx}-\Delta t_{rx}}{\Delta t_{rx}}
-    \]
-
-    \item Hence the $k$-th RX basis function is
-    \[
-        \psi_{k,rx}(t) = e^{j2\pi\left[f_{0,rx}+k\Delta f(1+\zeta)\right]t}
-    \]
-\end{itemize}
-
-\end{frame}
-% -----------------------------------------------------------
-% Frame 3: Cross-Correlation and the Origin of ICI
-% -----------------------------------------------------------
-\begin{frame}{Appendix}
-
-\begin{itemize}
-    \item Evaluate the integral between the $n$-th TX and $k$-th RX
-    basis functions:
-    \begin{align*}
-        \int_a^b \psi_{n,tx}(t)\,\psi_{k,rx}^{*}(t)\,dt
-        &= \int_a^b e^{j2\pi(f_{0,tx}+n\Delta f+f_d)t}\cdot
-                    e^{-j2\pi\left[f_{0,rx}+k\Delta f(1+\zeta)\right]t}\,dt\\
-        &= \int_a^b e^{\,j2\pi\left\{(f_{0,tx}-f_{0,rx})+(n-k)\Delta f
-                    -k\Delta f\zeta+f_d\right\}t}\,dt\\
-        &\;\triangleq\; \int_a^b e^{j2\pi\,\delta f_{n,k}\,t}\,dt
-    \end{align*}
-    where 
-    \[
-        \delta f_{n,k} =
-        \underbrace{(f_{0,tx}-f_{0,rx})}_{\text{CFO of LO}}
-        \;+(n-k)\Delta f\underbrace{-\,k\Delta f\zeta}_{\text{SCO}}\;
-        +\underbrace{f_d}_{\text{Doppler}}
-    \]
-\end{itemize}
-
 \end{frame}
 % -----------------------------------------------------------
 % Frame 1 (mirrors p.102): Ideal boundary vs. actual FFT window
@@ -1861,8 +1724,6 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
         \qquad\longrightarrow\qquad
         \text{Actual window: } [T-\tau_\Delta,\,2T-\tau_\Delta)
     \]
-
-    \item $\tau_\Delta$ is the \textbf{Symbol Timing Offset (STO)}.
 \end{itemize}
 
 \end{frame}
@@ -1896,6 +1757,45 @@ Y_k &= \sum_{m=0}^{N-1} x[m]\;\sum_{r=0}^{N-1} h[r]\;e^{-j\frac{2\pi}{N}k(r+m)} 
     \item $\tau_\Delta \neq 0$: $y(t)$ is no longer $\sum_n d_{1,n}\,\psi_n(t-T)$.
 \end{itemize}
 
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix}
+    \begin{itemize}
+        \item Within the DFT interval, if a subcarrier does not complete an integer number of cycles, its orthogonality is lost, leading to ICI.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{GI_cause_ISI_modify.png}
+    \end{figure}
+\end{frame}
+%-----------------------------------------------------------------------------%
+\begin{frame}
+    \frametitle{Appendix}
+    \begin{itemize}
+    \item Original continuous subcarrier:
+    \begin{align*}
+        x(t) &= e^{j 2\pi f_0 t},\, -\infty < t < \infty \\
+        X(f) &= \delta(f - f_0)
+    \end{align*}
+    \item Guard interval of duration $T_{\mathrm{GI}}$:
+    \[
+        a(t) = 
+        \begin{cases}
+            1, & T_{\mathrm{GI}} \le t \le T_{\mathrm{GI}}+T \\
+            0, & \text{otherwise}
+        \end{cases}
+    \]
+    \[
+        A(f) = T \, \mathrm{sinc}(fT)\, e^{-j2\pi f (T_{\mathrm{GI}} + T/2)}.
+    \]
+    \item Subcarrier with GI:
+    \begin{align*} 
+        \hat{x}(t) &= a(t)\,e^{j2\pi f_0 t} \\
+        \hat{X}(f) &= A(f) * \delta(f-f_0) = A(f-f_0).
+    \end{align*}
+    Due to GI, the spectrum becomes a shifted sinc (not a perfect delta).
+\end{itemize}
 \end{frame}
 %-----------------------------------------------------------------------------%
 \begin{frame}
